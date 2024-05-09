@@ -1,0 +1,599 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DestekKategorileri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="DestekTalepleri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiparisId" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="KategoriId" Type="int" Nullable="false" />
+          <Property Name="Talep" Type="text" />
+          <Property Name="YoneticiCevap" Type="text" />
+          <Property Name="TalepTarihi" Type="datetime" Nullable="false" />
+          <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+          <Property Name="TamamlandiMi" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KargoFirmalari">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Aciklama" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Musteriler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Soyad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="KimlikNo" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Adres" Type="text" Nullable="false" />
+          <Property Name="Posta" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Cinsiyet" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Siparis_Detay">
+          <Key>
+            <PropertyRef Name="SiparisId" />
+            <PropertyRef Name="UrunId" />
+            <PropertyRef Name="Urun_Fiyat" />
+            <PropertyRef Name="Adet" />
+          </Key>
+          <Property Name="SiparisId" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="UrunId" Type="int" Nullable="false" />
+          <Property Name="Urun_Fiyat" Type="money" Nullable="false" />
+          <Property Name="Adet" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Siparisler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="MusteriId" Type="int" />
+          <Property Name="SiparisTarihi" Type="datetime" />
+          <Property Name="TeslimTarihi" Type="datetime" />
+          <Property Name="IptalTarihi" Type="datetime" />
+          <Property Name="Tutar" Type="money" />
+          <Property Name="Kargo_Id" Type="int" />
+          <Property Name="TeslimSehri" Type="nvarchar" MaxLength="15" />
+          <Property Name="TeslimAdresi" Type="text" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Urunler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Kategori_Id" Type="int" Nullable="false" />
+          <Property Name="Fiyat" Type="money" Nullable="false" />
+          <Property Name="Stok" Type="smallint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DestekTalepleri_DestekKategorileri">
+          <End Role="DestekKategorileri" Type="Self.DestekKategorileri" Multiplicity="1" />
+          <End Role="DestekTalepleri" Type="Self.DestekTalepleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DestekKategorileri">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DestekTalepleri">
+              <PropertyRef Name="KategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DestekTalepleri_Siparisler">
+          <End Role="Siparisler" Type="Self.Siparisler" Multiplicity="1" />
+          <End Role="DestekTalepleri" Type="Self.DestekTalepleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Siparisler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DestekTalepleri">
+              <PropertyRef Name="SiparisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_Siparisler">
+          <End Role="Siparisler" Type="Self.Siparisler" Multiplicity="1" />
+          <End Role="Siparis_Detay" Type="Self.Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Siparisler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="SiparisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_Urunler">
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="1" />
+          <End Role="Siparis_Detay" Type="Self.Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparisler_KargoFirmalari">
+          <End Role="KargoFirmalari" Type="Self.KargoFirmalari" Multiplicity="0..1" />
+          <End Role="Siparisler" Type="Self.Siparisler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KargoFirmalari">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Siparisler">
+              <PropertyRef Name="Kargo_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparisler_Musteriler">
+          <End Role="Musteriler" Type="Self.Musteriler" Multiplicity="0..1" />
+          <End Role="Siparisler" Type="Self.Siparisler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteriler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Siparisler">
+              <PropertyRef Name="MusteriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_Kategoriler">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="Kategori_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CRMModelStoreContainer">
+          <EntitySet Name="DestekKategorileri" EntityType="Self.DestekKategorileri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DestekTalepleri" EntityType="Self.DestekTalepleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KargoFirmalari" EntityType="Self.KargoFirmalari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Musteriler" EntityType="Self.Musteriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Siparisler" EntityType="Self.Siparisler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Urunler" EntityType="Self.Urunler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Siparis_Detay" EntityType="Self.Siparis_Detay" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Siparis_Detay].[SiparisId] AS [SiparisId], 
+    [Siparis_Detay].[UrunId] AS [UrunId], 
+    [Siparis_Detay].[Urun_Fiyat] AS [Urun_Fiyat], 
+    [Siparis_Detay].[Adet] AS [Adet]
+    FROM [dbo].[Siparis_Detay] AS [Siparis_Detay]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_DestekTalepleri_DestekKategorileri" Association="Self.FK_DestekTalepleri_DestekKategorileri">
+            <End Role="DestekKategorileri" EntitySet="DestekKategorileri" />
+            <End Role="DestekTalepleri" EntitySet="DestekTalepleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DestekTalepleri_Siparisler" Association="Self.FK_DestekTalepleri_Siparisler">
+            <End Role="Siparisler" EntitySet="Siparisler" />
+            <End Role="DestekTalepleri" EntitySet="DestekTalepleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_Siparisler" Association="Self.FK_Siparis_Detay_Siparisler">
+            <End Role="Siparisler" EntitySet="Siparisler" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_Urunler" Association="Self.FK_Siparis_Detay_Urunler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparisler_KargoFirmalari" Association="Self.FK_Siparisler_KargoFirmalari">
+            <End Role="KargoFirmalari" EntitySet="KargoFirmalari" />
+            <End Role="Siparisler" EntitySet="Siparisler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparisler_Musteriler" Association="Self.FK_Siparisler_Musteriler">
+            <End Role="Musteriler" EntitySet="Musteriler" />
+            <End Role="Siparisler" EntitySet="Siparisler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_Kategoriler" Association="Self.FK_Urunler_Kategoriler">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DestekKategorileri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DestekTalepleri" Relationship="Self.FK_DestekTalepleri_DestekKategorileri" FromRole="DestekKategorileri" ToRole="DestekTalepleri" />
+        </EntityType>
+        <EntityType Name="DestekTalepleri">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiparisId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="KategoriId" Type="Int32" Nullable="false" />
+          <Property Name="Talep" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="YoneticiCevap" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TalepTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TamamlandiMi" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DestekKategorileri" Relationship="Self.FK_DestekTalepleri_DestekKategorileri" FromRole="DestekTalepleri" ToRole="DestekKategorileri" />
+          <NavigationProperty Name="Siparisler" Relationship="Self.FK_DestekTalepleri_Siparisler" FromRole="DestekTalepleri" ToRole="Siparisler" />
+        </EntityType>
+        <EntityType Name="KargoFirmalari">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Siparisler" Relationship="Self.FK_Siparisler_KargoFirmalari" FromRole="KargoFirmalari" ToRole="Siparisler" />
+        </EntityType>
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Aciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Urunler" Relationship="Self.FK_Urunler_Kategoriler" FromRole="Kategoriler" ToRole="Urunler" />
+        </EntityType>
+        <EntityType Name="Musteriler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KimlikNo" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Sifre" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Posta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cinsiyet" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Siparisler" Relationship="Self.FK_Siparisler_Musteriler" FromRole="Musteriler" ToRole="Siparisler" />
+        </EntityType>
+        <EntityType Name="Siparisler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MusteriId" Type="Int32" />
+          <Property Name="SiparisTarihi" Type="DateTime" Precision="3" />
+          <Property Name="TeslimTarihi" Type="DateTime" Precision="3" />
+          <Property Name="IptalTarihi" Type="DateTime" Precision="3" />
+          <Property Name="Tutar" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Kargo_Id" Type="Int32" />
+          <Property Name="TeslimSehri" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="TeslimAdresi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DestekTalepleri" Relationship="Self.FK_DestekTalepleri_Siparisler" FromRole="Siparisler" ToRole="DestekTalepleri" />
+          <NavigationProperty Name="KargoFirmalari" Relationship="Self.FK_Siparisler_KargoFirmalari" FromRole="Siparisler" ToRole="KargoFirmalari" />
+          <NavigationProperty Name="Musteriler" Relationship="Self.FK_Siparisler_Musteriler" FromRole="Siparisler" ToRole="Musteriler" />
+          <NavigationProperty Name="Siparis_Detay" Relationship="Self.FK_Siparis_Detay_Siparisler" FromRole="Siparisler" ToRole="Siparis_Detay" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Urunler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Kategori_Id" Type="Int32" Nullable="false" />
+          <Property Name="Fiyat" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Stok" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Kategoriler" Relationship="Self.FK_Urunler_Kategoriler" FromRole="Urunler" ToRole="Kategoriler" />
+          <NavigationProperty Name="Siparis_Detay" Relationship="Self.FK_Siparis_Detay_Urunler" FromRole="Urunler" ToRole="Siparis_Detay" />
+        </EntityType>
+        <EntityType Name="Siparis_Detay">
+          <Key>
+            <PropertyRef Name="SiparisId" />
+            <PropertyRef Name="UrunId" />
+            <PropertyRef Name="Urun_Fiyat" />
+            <PropertyRef Name="Adet" />
+          </Key>
+          <Property Name="SiparisId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="UrunId" Type="Int32" Nullable="false" />
+          <Property Name="Urun_Fiyat" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Adet" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Siparisler" Relationship="Self.FK_Siparis_Detay_Siparisler" FromRole="Siparis_Detay" ToRole="Siparisler" />
+          <NavigationProperty Name="Urunler" Relationship="Self.FK_Siparis_Detay_Urunler" FromRole="Siparis_Detay" ToRole="Urunler" />
+        </EntityType>
+        <Association Name="FK_DestekTalepleri_DestekKategorileri">
+          <End Role="DestekKategorileri" Type="Self.DestekKategorileri" Multiplicity="1" />
+          <End Role="DestekTalepleri" Type="Self.DestekTalepleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DestekKategorileri">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DestekTalepleri">
+              <PropertyRef Name="KategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DestekTalepleri_Siparisler">
+          <End Role="Siparisler" Type="Self.Siparisler" Multiplicity="1" />
+          <End Role="DestekTalepleri" Type="Self.DestekTalepleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Siparisler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DestekTalepleri">
+              <PropertyRef Name="SiparisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparisler_KargoFirmalari">
+          <End Role="KargoFirmalari" Type="Self.KargoFirmalari" Multiplicity="0..1" />
+          <End Role="Siparisler" Type="Self.Siparisler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KargoFirmalari">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Siparisler">
+              <PropertyRef Name="Kargo_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_Kategoriler">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="Kategori_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparisler_Musteriler">
+          <End Role="Musteriler" Type="Self.Musteriler" Multiplicity="0..1" />
+          <End Role="Siparisler" Type="Self.Siparisler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteriler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Siparisler">
+              <PropertyRef Name="MusteriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_Siparisler">
+          <End Role="Siparisler" Type="Self.Siparisler" Multiplicity="1" />
+          <End Role="Siparis_Detay" Type="Self.Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Siparisler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="SiparisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparis_Detay_Urunler">
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="1" />
+          <End Role="Siparis_Detay" Type="Self.Siparis_Detay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Siparis_Detay">
+              <PropertyRef Name="UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CRMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DestekKategorileri" EntityType="Self.DestekKategorileri" />
+          <EntitySet Name="DestekTalepleri" EntityType="Self.DestekTalepleri" />
+          <EntitySet Name="KargoFirmalari" EntityType="Self.KargoFirmalari" />
+          <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" />
+          <EntitySet Name="Musteriler" EntityType="Self.Musteriler" />
+          <EntitySet Name="Siparisler" EntityType="Self.Siparisler" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Urunler" EntityType="Self.Urunler" />
+          <EntitySet Name="Siparis_Detay" EntityType="Self.Siparis_Detay" />
+          <AssociationSet Name="FK_DestekTalepleri_DestekKategorileri" Association="Self.FK_DestekTalepleri_DestekKategorileri">
+            <End Role="DestekKategorileri" EntitySet="DestekKategorileri" />
+            <End Role="DestekTalepleri" EntitySet="DestekTalepleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DestekTalepleri_Siparisler" Association="Self.FK_DestekTalepleri_Siparisler">
+            <End Role="Siparisler" EntitySet="Siparisler" />
+            <End Role="DestekTalepleri" EntitySet="DestekTalepleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparisler_KargoFirmalari" Association="Self.FK_Siparisler_KargoFirmalari">
+            <End Role="KargoFirmalari" EntitySet="KargoFirmalari" />
+            <End Role="Siparisler" EntitySet="Siparisler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_Kategoriler" Association="Self.FK_Urunler_Kategoriler">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparisler_Musteriler" Association="Self.FK_Siparisler_Musteriler">
+            <End Role="Musteriler" EntitySet="Musteriler" />
+            <End Role="Siparisler" EntitySet="Siparisler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_Siparisler" Association="Self.FK_Siparis_Detay_Siparisler">
+            <End Role="Siparisler" EntitySet="Siparisler" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparis_Detay_Urunler" Association="Self.FK_Siparis_Detay_Urunler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CRMModelStoreContainer" CdmEntityContainer="CRMEntities">
+          <EntitySetMapping Name="DestekKategorileri">
+            <EntityTypeMapping TypeName="CRMModel.DestekKategorileri">
+              <MappingFragment StoreEntitySet="DestekKategorileri">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DestekTalepleri">
+            <EntityTypeMapping TypeName="CRMModel.DestekTalepleri">
+              <MappingFragment StoreEntitySet="DestekTalepleri">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SiparisId" ColumnName="SiparisId" />
+                <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+                <ScalarProperty Name="Talep" ColumnName="Talep" />
+                <ScalarProperty Name="YoneticiCevap" ColumnName="YoneticiCevap" />
+                <ScalarProperty Name="TalepTarihi" ColumnName="TalepTarihi" />
+                <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
+                <ScalarProperty Name="TamamlandiMi" ColumnName="TamamlandiMi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KargoFirmalari">
+            <EntityTypeMapping TypeName="CRMModel.KargoFirmalari">
+              <MappingFragment StoreEntitySet="KargoFirmalari">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategoriler">
+            <EntityTypeMapping TypeName="CRMModel.Kategoriler">
+              <MappingFragment StoreEntitySet="Kategoriler">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Musteriler">
+            <EntityTypeMapping TypeName="CRMModel.Musteriler">
+              <MappingFragment StoreEntitySet="Musteriler">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="KimlikNo" ColumnName="KimlikNo" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Posta" ColumnName="Posta" />
+                <ScalarProperty Name="Cinsiyet" ColumnName="Cinsiyet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Siparisler">
+            <EntityTypeMapping TypeName="CRMModel.Siparisler">
+              <MappingFragment StoreEntitySet="Siparisler">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MusteriId" ColumnName="MusteriId" />
+                <ScalarProperty Name="SiparisTarihi" ColumnName="SiparisTarihi" />
+                <ScalarProperty Name="TeslimTarihi" ColumnName="TeslimTarihi" />
+                <ScalarProperty Name="IptalTarihi" ColumnName="IptalTarihi" />
+                <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+                <ScalarProperty Name="Kargo_Id" ColumnName="Kargo_Id" />
+                <ScalarProperty Name="TeslimSehri" ColumnName="TeslimSehri" />
+                <ScalarProperty Name="TeslimAdresi" ColumnName="TeslimAdresi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CRMModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Urunler">
+            <EntityTypeMapping TypeName="CRMModel.Urunler">
+              <MappingFragment StoreEntitySet="Urunler">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Kategori_Id" ColumnName="Kategori_Id" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="Stok" ColumnName="Stok" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Siparis_Detay">
+            <EntityTypeMapping TypeName="CRMModel.Siparis_Detay">
+              <MappingFragment StoreEntitySet="Siparis_Detay">
+                <ScalarProperty Name="SiparisId" ColumnName="SiparisId" />
+                <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+                <ScalarProperty Name="Urun_Fiyat" ColumnName="Urun_Fiyat" />
+                <ScalarProperty Name="Adet" ColumnName="Adet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

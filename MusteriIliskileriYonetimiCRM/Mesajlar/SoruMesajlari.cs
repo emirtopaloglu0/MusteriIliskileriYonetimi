@@ -16,5 +16,10 @@ namespace MusteriIliskileriYonetimiCRM.Mesajlar
         {
             res = MessageBox.Show("Çıkmak İstediğinze Emin Misiniz?", "Dikkat!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
+
+        internal void Kayit()
+        {
+            res = MessageBox.Show("Kayıt Olmak İstediğinize Emin Misiniz?", "Dikkat!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
     }
 }

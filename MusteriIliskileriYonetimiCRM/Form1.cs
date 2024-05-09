@@ -1,4 +1,6 @@
-﻿using MusteriIliskileriYonetimiCRM.Mesajlar;
+﻿using MusteriIliskileriYonetimiCRM.Class.Connection;
+using MusteriIliskileriYonetimiCRM.Mesajlar;
+using MusteriIliskileriYonetimiCRM.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +16,7 @@ namespace MusteriIliskileriYonetimiCRM
     public partial class Form1 : Form
     {
 
-        public static Form1 instance = new Form1();
+        public static Form1 instance;
 
         public char[] charsToTrim = { '*', ' ', '\'', '_', '-', '+', '$', '!', '^', '#', '%', '&', '/', '?', '(', ')', '=', '<', '>', '|', '£', '½', '{', '[', ']', '}' };
 
@@ -24,15 +26,29 @@ namespace MusteriIliskileriYonetimiCRM
         public Form1()
         {
             InitializeComponent();
+            instance = this;
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
         {
             SoruMesajlari.instance.CloseApp();
-            if(SoruMesajlari.instance.res == DialogResult.Yes)
+            if (SoruMesajlari.instance.res == DialogResult.Yes)
             {
                 Close();
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+           
+
+            u_MusteriPanel1.Hide();
+        }
+
+        public void LoggedIn()
+        {
+            u_MusteriPanel1.Visible = true;
+            loginPanel1.Visible = false ;
         }
     }
 }

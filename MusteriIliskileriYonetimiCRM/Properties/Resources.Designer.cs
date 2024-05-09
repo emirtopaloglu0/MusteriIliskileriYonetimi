@@ -89,5 +89,25 @@ namespace MusteriIliskileriYonetimiCRM.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Youtube_loading_symbol_1__wobbly_ {
+            get {
+                object obj = ResourceManager.GetObject("Youtube_loading_symbol_1_(wobbly)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ZKZg {
+            get {
+                object obj = ResourceManager.GetObject("ZKZg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

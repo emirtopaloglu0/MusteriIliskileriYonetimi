@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusteriIliskileriYonetimiCRM.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace MusteriIliskileriYonetimiCRM.Class.Connection
 {
     internal class DB_Connection
     {
-        // public static  db = new (); DB CONNECTION
+
+        public static CRMEntities db = new CRMEntities();
+
     }
 }

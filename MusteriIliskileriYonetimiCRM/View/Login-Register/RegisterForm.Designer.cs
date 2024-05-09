@@ -74,10 +74,11 @@
             // 
             // Address_RichBox
             // 
+            this.Address_RichBox.EnableAutoDragDrop = true;
             this.Address_RichBox.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Address_RichBox.Location = new System.Drawing.Point(223, 242);
             this.Address_RichBox.Name = "Address_RichBox";
-            this.Address_RichBox.Size = new System.Drawing.Size(167, 37);
+            this.Address_RichBox.Size = new System.Drawing.Size(167, 71);
             this.Address_RichBox.TabIndex = 39;
             this.Address_RichBox.Text = "";
             // 
@@ -91,6 +92,7 @@
             this.checkBox1.TabIndex = 49;
             this.checkBox1.Text = "Şifreyi Göster";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Cancel_Btn
             // 
@@ -116,6 +118,7 @@
             this.Register_Btn.TabIndex = 40;
             this.Register_Btn.Text = "Kayıt İşlemini Tamamla";
             this.Register_Btn.UseVisualStyleBackColor = false;
+            this.Register_Btn.Click += new System.EventHandler(this.Register_Btn_Click);
             // 
             // label7
             // 
@@ -131,7 +134,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label5.Location = new System.Drawing.Point(18, 245);
+            this.label5.Location = new System.Drawing.Point(18, 266);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(62, 23);
             this.label5.TabIndex = 42;
@@ -207,6 +210,7 @@
             this.Name_Box.Name = "Name_Box";
             this.Name_Box.Size = new System.Drawing.Size(167, 30);
             this.Name_Box.TabIndex = 32;
+            this.Name_Box.TextChanged += new System.EventHandler(this.TextboxChanged);
             // 
             // Surname_Box
             // 
@@ -217,16 +221,18 @@
             this.Surname_Box.Name = "Surname_Box";
             this.Surname_Box.Size = new System.Drawing.Size(167, 30);
             this.Surname_Box.TabIndex = 33;
+            this.Surname_Box.TextChanged += new System.EventHandler(this.TextboxChanged);
             // 
             // IdentityNo_Box
             // 
             this.IdentityNo_Box.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.IdentityNo_Box.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.IdentityNo_Box.Location = new System.Drawing.Point(223, 84);
-            this.IdentityNo_Box.MaxLength = 20;
+            this.IdentityNo_Box.MaxLength = 11;
             this.IdentityNo_Box.Name = "IdentityNo_Box";
             this.IdentityNo_Box.Size = new System.Drawing.Size(167, 30);
             this.IdentityNo_Box.TabIndex = 34;
+            this.IdentityNo_Box.TextChanged += new System.EventHandler(this.TextboxChanged);
             // 
             // label1
             // 
@@ -263,8 +269,10 @@
             this.Controls.Add(this.IdentityNo_Box);
             this.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "RegisterForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RegisterForm";
             this.ResumeLayout(false);
