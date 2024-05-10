@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusteriIliskileriYonetimiCRM.Class.Connection;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,7 +22,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
 
 
-        internal void ShowAyarlar()
+        internal void ShowAyarlar(object sender, EventArgs e)
         {
             u_AyarlarPanel1.Show();
             u_DestekPanel1.Hide();
@@ -29,7 +30,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             u_SiparislerPanel1.Hide();
             u_UrunlerPanel1.Hide();
         }
-        internal void ShowDestek()
+        internal void ShowDestek(object sender, EventArgs e)
         {
             u_AyarlarPanel1.Hide();
             u_DestekPanel1.Show();
@@ -37,21 +38,23 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             u_SiparislerPanel1.Hide();
             u_UrunlerPanel1.Hide();
         }
-        internal void ShowSepet()
+        internal void ShowSepet(object sender, EventArgs e)
         {
             u_AyarlarPanel1.Hide();
             u_DestekPanel1.Hide();
             u_SepetPanel1.Show();
             u_SiparislerPanel1.Hide();
             u_UrunlerPanel1.Hide();
+            U_SepetPanel.instance.LoadCart();
         }
-        internal void ShowSiparisler()
+        internal void ShowSiparisler(object sender, EventArgs e)
         {
             u_AyarlarPanel1.Hide();
             u_DestekPanel1.Hide();
             u_SepetPanel1.Hide();
             u_SiparislerPanel1.Show();
             u_UrunlerPanel1.Hide();
+            
         }
         internal void ShowUrunler(object sender, EventArgs e)
         {
@@ -60,12 +63,14 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             u_SepetPanel1.Hide();
             u_SiparislerPanel1.Hide();
             u_UrunlerPanel1.Show();
-            U_UrunlerPanel.instance.LoadData();
+            var urunler = DB_Connection.db.Urunler.ToList();
+            U_UrunlerPanel.instance.LoadKategoriler();
+            U_UrunlerPanel.instance.LoadData(urunler);
         }
 
         private void u_UrunlerPanel1_Load(object sender, EventArgs e)
         {
-            ShowSiparisler();
+            ShowSiparisler(sender, e);
         }
     }
 }

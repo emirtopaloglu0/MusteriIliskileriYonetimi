@@ -42,5 +42,27 @@ namespace MusteriIliskileriYonetimiCRM.View.Login_Register
         {
             Mail_Box.Text = Settings.Default.U_Mail;
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (checkBox1.Checked)
+            {
+                Pass_Box.PasswordChar = '\0';
+            }
+            else
+            {
+                Pass_Box.PasswordChar = '*';
+
+            }
+        }
+
+        private void Pass_Box_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                Login_Btn_Click(sender, e);
+            }
+        }
     }
 }

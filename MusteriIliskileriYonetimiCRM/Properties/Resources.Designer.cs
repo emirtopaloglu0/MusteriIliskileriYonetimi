@@ -63,9 +63,59 @@ namespace MusteriIliskileriYonetimiCRM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cargo {
+            get {
+                object obj = ResourceManager.GetObject("cargo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap check {
+            get {
+                object obj = ResourceManager.GetObject("check", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap close {
             get {
                 object obj = ResourceManager.GetObject("close", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap customer_service {
+            get {
+                object obj = ResourceManager.GetObject("customer-service", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap digital {
+            get {
+                object obj = ResourceManager.GetObject("digital", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap info1 {
+            get {
+                object obj = ResourceManager.GetObject("info1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -86,6 +136,26 @@ namespace MusteriIliskileriYonetimiCRM.Properties {
         internal static System.Drawing.Bitmap robotic_hand {
             get {
                 object obj = ResourceManager.GetObject("robotic-hand", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap settings2 {
+            get {
+                object obj = ResourceManager.GetObject("settings2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap shopping_cart {
+            get {
+                object obj = ResourceManager.GetObject("shopping-cart", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

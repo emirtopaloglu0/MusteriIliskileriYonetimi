@@ -40,7 +40,6 @@
             this.u_SepetPanel1 = new MusteriIliskileriYonetimiCRM.View.UserPanels.U_SepetPanel();
             this.u_DestekPanel1 = new MusteriIliskileriYonetimiCRM.View.UserPanels.U_DestekPanel();
             this.u_AyarlarPanel1 = new MusteriIliskileriYonetimiCRM.View.UserPanels.U_AyarlarPanel();
-            this.AddCart_Btn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +68,7 @@
             this.button4.TabIndex = 4;
             this.button4.Text = "Ayarlar";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.ShowAyarlar);
             // 
             // button3
             // 
@@ -82,6 +82,7 @@
             this.button3.TabIndex = 4;
             this.button3.Text = "Destek Talebi Oluştur";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.ShowDestek);
             // 
             // button2
             // 
@@ -95,6 +96,7 @@
             this.button2.TabIndex = 4;
             this.button2.Text = "Siparişlerim";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.ShowSiparisler);
             // 
             // button1
             // 
@@ -108,6 +110,7 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "Alışveriş Sepetim";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.ShowSepet);
             // 
             // Urunler_Btn
             // 
@@ -125,7 +128,6 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.AddCart_Btn);
             this.panel2.Controls.Add(this.u_UrunlerPanel1);
             this.panel2.Controls.Add(this.u_SiparislerPanel1);
             this.panel2.Controls.Add(this.u_SepetPanel1);
@@ -172,19 +174,6 @@
             this.u_AyarlarPanel1.Size = new System.Drawing.Size(1045, 570);
             this.u_AyarlarPanel1.TabIndex = 0;
             // 
-            // AddCart_Btn
-            // 
-            this.AddCart_Btn.BackColor = System.Drawing.Color.Teal;
-            this.AddCart_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddCart_Btn.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.AddCart_Btn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.AddCart_Btn.Location = new System.Drawing.Point(282, 0);
-            this.AddCart_Btn.Name = "AddCart_Btn";
-            this.AddCart_Btn.Size = new System.Drawing.Size(240, 45);
-            this.AddCart_Btn.TabIndex = 5;
-            this.AddCart_Btn.Text = "Sepete Ekle";
-            this.AddCart_Btn.UseVisualStyleBackColor = false;
-            // 
             // U_MusteriPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -213,6 +202,5 @@
         private U_SiparislerPanel u_SiparislerPanel1;
         private U_SepetPanel u_SepetPanel1;
         private U_UrunlerPanel u_UrunlerPanel1;
-        private System.Windows.Forms.Button AddCart_Btn;
     }
 }

@@ -30,6 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.Register_Btn = new System.Windows.Forms.Button();
             this.Login_Btn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -54,6 +55,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.Register_Btn);
             this.panel2.Controls.Add(this.Login_Btn);
             this.panel2.Controls.Add(this.pictureBox1);
@@ -61,10 +63,22 @@
             this.panel2.Controls.Add(this.Pass_Box);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.Mail_Box);
-            this.panel2.Location = new System.Drawing.Point(494, 144);
+            this.panel2.Location = new System.Drawing.Point(494, 125);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(257, 297);
+            this.panel2.Size = new System.Drawing.Size(256, 334);
             this.panel2.TabIndex = 4;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Figtree", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.checkBox1.Location = new System.Drawing.Point(152, 195);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(95, 17);
+            this.checkBox1.TabIndex = 32;
+            this.checkBox1.Text = "Şifreyi Göster";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Register_Btn
             // 
@@ -72,7 +86,7 @@
             this.Register_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Register_Btn.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Register_Btn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Register_Btn.Location = new System.Drawing.Point(7, 246);
+            this.Register_Btn.Location = new System.Drawing.Point(7, 282);
             this.Register_Btn.Name = "Register_Btn";
             this.Register_Btn.Size = new System.Drawing.Size(240, 45);
             this.Register_Btn.TabIndex = 4;
@@ -86,7 +100,7 @@
             this.Login_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Login_Btn.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Login_Btn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Login_Btn.Location = new System.Drawing.Point(7, 195);
+            this.Login_Btn.Location = new System.Drawing.Point(7, 231);
             this.Login_Btn.Name = "Login_Btn";
             this.Login_Btn.Size = new System.Drawing.Size(240, 45);
             this.Login_Btn.TabIndex = 3;
@@ -119,8 +133,10 @@
             this.Pass_Box.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Pass_Box.Location = new System.Drawing.Point(87, 159);
             this.Pass_Box.Name = "Pass_Box";
+            this.Pass_Box.PasswordChar = '*';
             this.Pass_Box.Size = new System.Drawing.Size(160, 30);
             this.Pass_Box.TabIndex = 2;
+            this.Pass_Box.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Pass_Box_KeyDown);
             // 
             // label1
             // 
@@ -167,5 +183,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button Login_Btn;
         private System.Windows.Forms.Button Register_Btn;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
