@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Name_Label = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -46,6 +48,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.Name_Label);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
@@ -56,13 +60,34 @@
             this.panel1.Size = new System.Drawing.Size(186, 579);
             this.panel1.TabIndex = 0;
             // 
+            // Name_Label
+            // 
+            this.Name_Label.AutoSize = true;
+            this.Name_Label.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Name_Label.Location = new System.Drawing.Point(3, 31);
+            this.Name_Label.Name = "Name_Label";
+            this.Name_Label.Size = new System.Drawing.Size(25, 23);
+            this.Name_Label.TabIndex = 5;
+            this.Name_Label.Text = "...";
+            this.Name_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.Location = new System.Drawing.Point(36, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(120, 23);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Hoş Geldiniz";
+            // 
             // button4
             // 
             this.button4.BackColor = System.Drawing.SystemColors.Info;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button4.Location = new System.Drawing.Point(3, 516);
+            this.button4.Location = new System.Drawing.Point(3, 513);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(180, 58);
             this.button4.TabIndex = 4;
@@ -76,11 +101,11 @@
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button3.Location = new System.Drawing.Point(3, 378);
+            this.button3.Location = new System.Drawing.Point(3, 401);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(180, 58);
             this.button3.TabIndex = 4;
-            this.button3.Text = "Destek Talebi Oluştur";
+            this.button3.Text = "Destek Talebi";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.ShowDestek);
             // 
@@ -90,7 +115,7 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button2.Location = new System.Drawing.Point(3, 253);
+            this.button2.Location = new System.Drawing.Point(3, 302);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(180, 45);
             this.button2.TabIndex = 4;
@@ -104,7 +129,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(3, 128);
+            this.button1.Location = new System.Drawing.Point(3, 203);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(180, 45);
             this.button1.TabIndex = 4;
@@ -118,7 +143,7 @@
             this.Urunler_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Urunler_Btn.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Urunler_Btn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Urunler_Btn.Location = new System.Drawing.Point(3, 3);
+            this.Urunler_Btn.Location = new System.Drawing.Point(3, 104);
             this.Urunler_Btn.Name = "Urunler_Btn";
             this.Urunler_Btn.Size = new System.Drawing.Size(180, 45);
             this.Urunler_Btn.TabIndex = 4;
@@ -183,6 +208,7 @@
             this.Name = "U_MusteriPanel";
             this.Size = new System.Drawing.Size(1245, 585);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -202,5 +228,7 @@
         private U_SiparislerPanel u_SiparislerPanel1;
         private U_SepetPanel u_SepetPanel1;
         private U_UrunlerPanel u_UrunlerPanel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label Name_Label;
     }
 }

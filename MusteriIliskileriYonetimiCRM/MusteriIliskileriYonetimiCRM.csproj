@@ -118,6 +118,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\AdminPanels\A_AdminPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\AdminPanels\A_AdminPanel.Designer.cs">
+      <DependentUpon>A_AdminPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminPanels\A_DestekCevapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\AdminPanels\A_DestekCevapForm.Designer.cs">
+      <DependentUpon>A_DestekCevapForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Login-Register\LoginPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -129,6 +141,18 @@
     </Compile>
     <Compile Include="View\Login-Register\RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserPanels\DetailedOrderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\UserPanels\DetailedOrderForm.Designer.cs">
+      <DependentUpon>DetailedOrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserPanels\SupportHistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\UserPanels\SupportHistoryForm.Designer.cs">
+      <DependentUpon>SupportHistoryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\UserPanels\U_AyarlarPanel.cs">
       <SubType>UserControl</SubType>
@@ -179,11 +203,23 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="View\AdminPanels\A_AdminPanel.resx">
+      <DependentUpon>A_AdminPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\AdminPanels\A_DestekCevapForm.resx">
+      <DependentUpon>A_DestekCevapForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Login-Register\LoginPanel.resx">
       <DependentUpon>LoginPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Login-Register\RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UserPanels\DetailedOrderForm.resx">
+      <DependentUpon>DetailedOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\UserPanels\SupportHistoryForm.resx">
+      <DependentUpon>SupportHistoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\UserPanels\U_AyarlarPanel.resx">
       <DependentUpon>U_AyarlarPanel.cs</DependentUpon>
@@ -224,9 +260,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\AdminPanels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\close.png" />
   </ItemGroup>
@@ -247,6 +281,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\close2.png" />
+    <None Include="Resources\help-desk.png" />
     <None Include="Resources\cargo.png" />
     <None Include="Resources\customer-service.png" />
     <None Include="Resources\settings2.png" />

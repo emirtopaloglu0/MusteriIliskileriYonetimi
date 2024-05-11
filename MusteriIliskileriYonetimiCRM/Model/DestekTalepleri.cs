@@ -20,10 +20,12 @@ namespace MusteriIliskileriYonetimiCRM.Model
         public string Talep { get; set; }
         public string YoneticiCevap { get; set; }
         public System.DateTime TalepTarihi { get; set; }
-        public System.DateTime IslemTarihi { get; set; }
+        public Nullable<System.DateTime> IslemTarihi { get; set; }
         public bool TamamlandiMi { get; set; }
+        public int MusteriId { get; set; }
     
         public virtual DestekKategorileri DestekKategorileri { get; set; }
         public virtual Siparisler Siparisler { get; set; }
+        public virtual Musteriler Musteriler { get; set; }
     }
 }

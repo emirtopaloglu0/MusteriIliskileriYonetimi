@@ -18,6 +18,7 @@ namespace MusteriIliskileriYonetimiCRM.Model
         public int UrunId { get; set; }
         public decimal Urun_Fiyat { get; set; }
         public short Adet { get; set; }
+        public int Id { get; set; }
     
         public virtual Siparisler Siparisler { get; set; }
         public virtual Urunler Urunler { get; set; }

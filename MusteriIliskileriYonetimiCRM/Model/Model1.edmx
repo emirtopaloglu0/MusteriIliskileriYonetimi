@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DestekKategorileri">
           <Key>
             <PropertyRef Name="Id" />
@@ -18,11 +18,12 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SiparisId" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="MusteriId" Type="int" Nullable="false" />
           <Property Name="KategoriId" Type="int" Nullable="false" />
           <Property Name="Talep" Type="text" />
           <Property Name="YoneticiCevap" Type="text" />
           <Property Name="TalepTarihi" Type="datetime" Nullable="false" />
-          <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+          <Property Name="IslemTarihi" Type="datetime" />
           <Property Name="TamamlandiMi" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="KargoFirmalari">
@@ -53,15 +54,11 @@
           <Property Name="Posta" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Cinsiyet" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Siparis_Detay">
           <Key>
-            <PropertyRef Name="SiparisId" />
-            <PropertyRef Name="UrunId" />
-            <PropertyRef Name="Urun_Fiyat" />
-            <PropertyRef Name="Adet" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SiparisId" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="UrunId" Type="int" Nullable="false" />
           <Property Name="Urun_Fiyat" Type="money" Nullable="false" />
@@ -110,6 +107,18 @@ warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not hav
             </Principal>
             <Dependent Role="DestekTalepleri">
               <PropertyRef Name="KategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DestekTalepleri_Musteriler">
+          <End Role="Musteriler" Type="Self.Musteriler" Multiplicity="1" />
+          <End Role="DestekTalepleri" Type="Self.DestekTalepleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteriler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DestekTalepleri">
+              <PropertyRef Name="MusteriId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -191,19 +200,16 @@ warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not hav
           <EntitySet Name="KargoFirmalari" EntityType="Self.KargoFirmalari" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Musteriler" EntityType="Self.Musteriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Siparis_Detay" EntityType="Self.Siparis_Detay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Siparisler" EntityType="Self.Siparisler" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Urunler" EntityType="Self.Urunler" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Siparis_Detay" EntityType="Self.Siparis_Detay" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Siparis_Detay].[SiparisId] AS [SiparisId], 
-    [Siparis_Detay].[UrunId] AS [UrunId], 
-    [Siparis_Detay].[Urun_Fiyat] AS [Urun_Fiyat], 
-    [Siparis_Detay].[Adet] AS [Adet]
-    FROM [dbo].[Siparis_Detay] AS [Siparis_Detay]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_DestekTalepleri_DestekKategorileri" Association="Self.FK_DestekTalepleri_DestekKategorileri">
             <End Role="DestekKategorileri" EntitySet="DestekKategorileri" />
+            <End Role="DestekTalepleri" EntitySet="DestekTalepleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DestekTalepleri_Musteriler" Association="Self.FK_DestekTalepleri_Musteriler">
+            <End Role="Musteriler" EntitySet="Musteriler" />
             <End Role="DestekTalepleri" EntitySet="DestekTalepleri" />
           </AssociationSet>
           <AssociationSet Name="FK_DestekTalepleri_Siparisler" Association="Self.FK_DestekTalepleri_Siparisler">
@@ -231,8 +237,7 @@ warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not hav
             <End Role="Urunler" EntitySet="Urunler" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CRMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -254,10 +259,12 @@ warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not hav
           <Property Name="Talep" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="YoneticiCevap" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TalepTarihi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IslemTarihi" Type="DateTime" Precision="3" />
           <Property Name="TamamlandiMi" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="DestekKategorileri" Relationship="Self.FK_DestekTalepleri_DestekKategorileri" FromRole="DestekTalepleri" ToRole="DestekKategorileri" />
           <NavigationProperty Name="Siparisler" Relationship="Self.FK_DestekTalepleri_Siparisler" FromRole="DestekTalepleri" ToRole="Siparisler" />
+          <Property Name="MusteriId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Musteriler" Relationship="CRMModel.FK_DestekTalepleri_Musteriler" FromRole="DestekTalepleri" ToRole="Musteriler" />
         </EntityType>
         <EntityType Name="KargoFirmalari">
           <Key>
@@ -289,6 +296,7 @@ warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not hav
           <Property Name="Posta" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Cinsiyet" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Siparisler" Relationship="Self.FK_Siparisler_Musteriler" FromRole="Musteriler" ToRole="Siparisler" />
+          <NavigationProperty Name="DestekTalepleri" Relationship="CRMModel.FK_DestekTalepleri_Musteriler" FromRole="Musteriler" ToRole="DestekTalepleri" />
         </EntityType>
         <EntityType Name="Siparisler">
           <Key>
@@ -332,10 +340,7 @@ warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not hav
         </EntityType>
         <EntityType Name="Siparis_Detay">
           <Key>
-            <PropertyRef Name="SiparisId" />
-            <PropertyRef Name="UrunId" />
-            <PropertyRef Name="Urun_Fiyat" />
-            <PropertyRef Name="Adet" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="SiparisId" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="UrunId" Type="Int32" Nullable="false" />
@@ -343,6 +348,7 @@ warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not hav
           <Property Name="Adet" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Siparisler" Relationship="Self.FK_Siparis_Detay_Siparisler" FromRole="Siparis_Detay" ToRole="Siparisler" />
           <NavigationProperty Name="Urunler" Relationship="Self.FK_Siparis_Detay_Urunler" FromRole="Siparis_Detay" ToRole="Urunler" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="FK_DestekTalepleri_DestekKategorileri">
           <End Role="DestekKategorileri" Type="Self.DestekKategorileri" Multiplicity="1" />
@@ -466,7 +472,23 @@ warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not hav
             <End Role="Urunler" EntitySet="Urunler" />
             <End Role="Siparis_Detay" EntitySet="Siparis_Detay" />
           </AssociationSet>
+          <AssociationSet Name="FK_DestekTalepleri_Musteriler" Association="CRMModel.FK_DestekTalepleri_Musteriler">
+            <End Role="Musteriler" EntitySet="Musteriler" />
+            <End Role="DestekTalepleri" EntitySet="DestekTalepleri" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_DestekTalepleri_Musteriler">
+          <End Type="CRMModel.Musteriler" Role="Musteriler" Multiplicity="1" />
+          <End Type="CRMModel.DestekTalepleri" Role="DestekTalepleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteriler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DestekTalepleri">
+              <PropertyRef Name="MusteriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -484,6 +506,7 @@ warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not hav
           <EntitySetMapping Name="DestekTalepleri">
             <EntityTypeMapping TypeName="CRMModel.DestekTalepleri">
               <MappingFragment StoreEntitySet="DestekTalepleri">
+                <ScalarProperty Name="MusteriId" ColumnName="MusteriId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SiparisId" ColumnName="SiparisId" />
                 <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
@@ -566,6 +589,7 @@ warning 6002: The table/view 'MusteriYonetimiCRM.dbo.Siparis_Detay' does not hav
           <EntitySetMapping Name="Siparis_Detay">
             <EntityTypeMapping TypeName="CRMModel.Siparis_Detay">
               <MappingFragment StoreEntitySet="Siparis_Detay">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SiparisId" ColumnName="SiparisId" />
                 <ScalarProperty Name="UrunId" ColumnName="UrunId" />
                 <ScalarProperty Name="Urun_Fiyat" ColumnName="Urun_Fiyat" />

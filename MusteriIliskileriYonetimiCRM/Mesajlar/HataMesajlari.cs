@@ -37,5 +37,35 @@ namespace MusteriIliskileriYonetimiCRM.Mesajlar
         {
             MessageBox.Show("Girdiğiniz Şifre Yanlıştır.", "Hata!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        internal static void SiparisZamanAsimi()
+        {
+            MessageBox.Show("Siparişinizin üstünden 3 gün geçtiği için iptal edemezsiniz!", "Dikkat!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        internal static void SatiriSeciniz()
+        {
+            MessageBox.Show("Sipariş Seçilemedi!", "Hata!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal static void StokHatasi()
+        {
+            MessageBox.Show("Ürünleri kontrol ediniz! Bir veya daha fazla üründe stok sayısından fazla ürünü sepete eklediniz!", "Hata!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal static void DestekKategorisi()
+        {
+            MessageBox.Show("Destek Türü Seçilmedi!", "Hata!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal static void DestekSecilemedi()
+        {
+            MessageBox.Show("Destek Seçilmedi!", "Hata!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        internal static void IslemeAlin()
+        {
+            MessageBox.Show("Desteği İşleme Alınız!", "Hata!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

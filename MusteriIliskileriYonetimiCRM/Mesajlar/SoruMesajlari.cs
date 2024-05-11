@@ -32,6 +32,21 @@ namespace MusteriIliskileriYonetimiCRM.Mesajlar
             res = MessageBox.Show("Sepeti Temizlemek İstediğinize Emin Misiniz?", "Dikkat!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
 
+        internal void SifreDegis()
+        {
+            res = MessageBox.Show("Şifrenizi Değiştirmek İstediğinize Emin Misiniz?", "Dikkat!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
+
+        internal void SiparisIptal()
+        {
+            res = MessageBox.Show("Siparişi İptal Etmek İstediğinize Emin Misiniz?", "Dikkat!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
+
+        internal void TalepOlustur()
+        {
+            res = MessageBox.Show("Talep Oluşturmak İstediğinize Emin Misiniz?", "Dikkat!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
+
         internal void UrunSilme()
         {
             res = MessageBox.Show("Ürünü Silmek İstediğinize Emin Misiniz?", "Dikkat!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

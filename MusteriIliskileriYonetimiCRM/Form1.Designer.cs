@@ -35,6 +35,7 @@
             this.ExitButton = new System.Windows.Forms.PictureBox();
             this.u_MusteriPanel1 = new MusteriIliskileriYonetimiCRM.View.UserPanels.U_MusteriPanel();
             this.loginPanel1 = new MusteriIliskileriYonetimiCRM.View.Login_Register.LoginPanel();
+            this.a_AdminPanel1 = new MusteriIliskileriYonetimiCRM.View.AdminPanels.A_AdminPanel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ExitButton)).BeginInit();
@@ -101,11 +102,19 @@
             this.loginPanel1.Size = new System.Drawing.Size(1260, 585);
             this.loginPanel1.TabIndex = 1;
             // 
+            // a_AdminPanel1
+            // 
+            this.a_AdminPanel1.Location = new System.Drawing.Point(12, 101);
+            this.a_AdminPanel1.Name = "a_AdminPanel1";
+            this.a_AdminPanel1.Size = new System.Drawing.Size(1257, 607);
+            this.a_AdminPanel1.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1280, 720);
+            this.Controls.Add(this.a_AdminPanel1);
             this.Controls.Add(this.u_MusteriPanel1);
             this.Controls.Add(this.loginPanel1);
             this.Controls.Add(this.panel1);
@@ -132,6 +141,7 @@
         private System.Windows.Forms.Label label1;
         private View.Login_Register.LoginPanel loginPanel1;
         private View.UserPanels.U_MusteriPanel u_MusteriPanel1;
+        private View.AdminPanels.A_AdminPanel a_AdminPanel1;
     }
 }
 

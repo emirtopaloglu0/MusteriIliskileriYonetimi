@@ -18,6 +18,7 @@ namespace MusteriIliskileriYonetimiCRM.Model
         public Musteriler()
         {
             this.Siparisler = new HashSet<Siparisler>();
+            this.DestekTalepleri = new HashSet<DestekTalepleri>();
         }
     
         public int Id { get; set; }
@@ -31,5 +32,7 @@ namespace MusteriIliskileriYonetimiCRM.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Siparisler> Siparisler { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DestekTalepleri> DestekTalepleri { get; set; }
     }
 }
