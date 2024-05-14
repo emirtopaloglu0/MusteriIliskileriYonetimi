@@ -37,7 +37,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
         {
             try
             {
-                Urunler_Listbox.Items.Clear();
+                //Urunler_Listbox.Items.Clear();
                 panel1.Controls.Clear();
                 //foreach (var u in urunler)
                 //{
@@ -60,21 +60,23 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                     Label label = new Label();
                     label.Text = item.Ad;
                     label.Tag = item.Id;
-                    label.Font = new Font(Label.DefaultFont, FontStyle.Bold);
+                    label.Font = new Font("Figtree", 14, FontStyle.Bold);
                     label.AutoSize = true;
-                    label.Location = new Point(150,i*40);
-                    
+                    label.Location = new Point(150, i * 40);
+
                     panel1.Controls.Add(label);
 
                     Button btn = new Button();
                     btn.Tag = item.Id;
                     btn.Text = "Sepete Ekle";
                     btn.Click += CartAdd;
-                    btn.Location = new Point(550, i*40);
+                    btn.Location = new Point(700, i * 40);
+                    btn.Font = new Font("Figtree", 14, FontStyle.Bold);
+                    btn.AutoSize = true;
                     panel1.Controls.Add(btn);
                     i++;
                 }
-                
+
 
             }
             catch
@@ -94,7 +96,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
         private void Kategoriler_Combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var index = Kategoriler_Combobox.SelectedIndex + 1;
-            var urunler = DB_Connection.db.Urunler.Where(x=> x.Kategori_Id == index).ToList();
+            var urunler = DB_Connection.db.Urunler.Where(x => x.Kategori_Id == index).ToList();
             LoadData(urunler);
         }
 
