@@ -38,12 +38,43 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             try
             {
                 Urunler_Listbox.Items.Clear();
-                foreach (var u in urunler)
+                panel1.Controls.Clear();
+                //foreach (var u in urunler)
+                //{
+                //    var kat = DB_Connection.db.Kategoriler.Find(u.Kategori_Id);
+                //    var fiyat = u.Fiyat.ToString().Trim();
+                //    Urunler_Listbox.Items.Add($"Ürün Kodu: {u.Id} - Ürün: {u.Ad} - Kategori: {kat.Ad} - Fiyat: {fiyat.Substring(0, fiyat.Length-2)} - Stok: {u.Stok}\n");
+                //}
+
+                int i = 1;
+                foreach (var item in urunler)
                 {
-                    var kat = DB_Connection.db.Kategoriler.Find(u.Kategori_Id);
-                    var fiyat = u.Fiyat.ToString().Trim();
-                    Urunler_Listbox.Items.Add($"Ürün Kodu: {u.Id} - Ürün: {u.Ad} - Kategori: {kat.Ad} - Fiyat: {fiyat.Substring(0, fiyat.Length-2)} - Stok: {u.Stok}\n");
+                    //PictureBox picture = new PictureBox();
+                    //picture.Image = Properties.Resources.cargo;
+                    //picture.Location = new Point(3, i * 40);
+                    //picture.Size = new Size(100, 117);
+                    //picture.Tag = item.Id;
+
+                    //panel1.Controls.Add(picture);
+
+                    Label label = new Label();
+                    label.Text = item.Ad;
+                    label.Tag = item.Id;
+                    label.Font = new Font(Label.DefaultFont, FontStyle.Bold);
+                    label.AutoSize = true;
+                    label.Location = new Point(150,i*40);
+                    
+                    panel1.Controls.Add(label);
+
+                    Button btn = new Button();
+                    btn.Tag = item.Id;
+                    btn.Text = "Sepete Ekle";
+                    btn.Click += CartAdd;
+                    btn.Location = new Point(550, i*40);
+                    panel1.Controls.Add(btn);
+                    i++;
                 }
+                
 
             }
             catch
@@ -53,6 +84,11 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
 
 
+        }
+
+        private void CartAdd(object sender, EventArgs e)
+        {
+            AddCart_Btn_Click(sender, e);
         }
 
         private void Kategoriler_Combobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -71,9 +107,12 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
         private void AddCart_Btn_Click(object sender, EventArgs e)
         {
-            var urun = Urunler_Listbox.SelectedItem.ToString().Split(':', '-');
-            Popup.instance.Success("Sepete Eklendi", $"{urun[3].Trim()} sepete eklendi");
-            U_SepetPanel.instance.list.Add(Int32.Parse(urun[1].Trim()));
+            Button btn = (Button)sender;
+            var tag = btn.Tag;
+            var urun = DB_Connection.db.Urunler.Find(tag);
+            //var urun = Urunler_Listbox.SelectedItem.ToString().Split(':', '-');
+            Popup.instance.Success("Sepete Eklendi", $"{urun.Ad.Trim()} sepete eklendi");
+            U_SepetPanel.instance.list.Add(Int32.Parse(tag.ToString().Trim()));
 
         }
     }
