@@ -28,7 +28,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
 
 
-        internal void LoadOrders(List<Siparisler> siparisler)
+        internal void LoadOrders(List<Siparisler> siparisler, bool isCurrent)
         {
             try
             {
@@ -55,14 +55,18 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                     btn.AutoSize = true;
                     panel1.Controls.Add(btn);
 
-                    Button btn2 = new Button();
-                    btn2.Tag = item.Id;
-                    btn2.Text = "Siparişi İptal Et";
-                    btn2.Click += CancelOrder_Btn_Click;
-                    btn2.Location = new Point(700, i * 60);
-                    btn2.Font = new Font("Figtree", 14, FontStyle.Bold);
-                    btn2.AutoSize = true;
-                    panel1.Controls.Add(btn2);
+                    if (isCurrent)
+                    {
+                        Button btn2 = new Button();
+                        btn2.Tag = item.Id;
+                        btn2.Text = "Siparişi İptal Et";
+                        btn2.Click += CancelOrder_Btn_Click;
+                        btn2.Location = new Point(700, i * 60);
+                        btn2.Font = new Font("Figtree", 14, FontStyle.Bold);
+                        btn2.AutoSize = true;
+                        panel1.Controls.Add(btn2);
+                    }
+
 
                     i++;
                 }
@@ -95,7 +99,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi == null && x.IptalTarihi == null)).ToList();
 
-            LoadOrders(siparisler);
+            LoadOrders(siparisler, true);
 
             /*foreach (var item in siparisler)
             {
@@ -117,7 +121,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi != null && x.IptalTarihi == null)).ToList();
 
-            LoadOrders(siparisler);
+            LoadOrders(siparisler, false);
 
 
             /*foreach (var item in siparisler)
@@ -135,7 +139,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi == null && x.IptalTarihi != null)).ToList();
 
-            LoadOrders(siparisler);
+            LoadOrders(siparisler, false);
 
 
             /*foreach (var item in siparisler)
