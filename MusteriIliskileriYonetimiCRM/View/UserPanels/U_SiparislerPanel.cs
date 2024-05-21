@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using MusteriIliskileriYonetimiCRM.Properties;
 using MusteriIliskileriYonetimiCRM.Class.Order;
 using MusteriIliskileriYonetimiCRM.Mesajlar;
+using MusteriIliskileriYonetimiCRM.Model;
 
 namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 {
@@ -26,6 +27,67 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
         }
 
 
+
+        internal void LoadOrders(List<Siparisler> siparisler)
+        {
+            try
+            {
+                panel1.Controls.Clear();
+                int i = 1;
+                foreach (var item in siparisler)
+                {
+                    Label label = new Label();
+                    string tutar = item.Tutar.ToString();
+                    label.Text = "Sipariş Tarihi: " + item.SiparisTarihi.ToString() + " \nTutar: " + tutar.Substring(0, tutar.Length - 2) + "\n";
+                    label.Tag = item.Id;
+                    label.Font = new Font("Figtree", 14, FontStyle.Bold);
+                    label.AutoSize = true;
+                    label.Location = new Point(150, i * 60);
+
+                    panel1.Controls.Add(label);
+
+                    Button btn = new Button();
+                    btn.Tag = item.Id;
+                    btn.Text = "Detaylı Göster";
+                    btn.Click += ShowDetail;
+                    btn.Location = new Point(500, i * 60);
+                    btn.Font = new Font("Figtree", 14, FontStyle.Bold);
+                    btn.AutoSize = true;
+                    panel1.Controls.Add(btn);
+
+                    Button btn2 = new Button();
+                    btn2.Tag = item.Id;
+                    btn2.Text = "Siparişi İptal Et";
+                    btn2.Click += CancelOrder_Btn_Click;
+                    btn2.Location = new Point(700, i * 60);
+                    btn2.Font = new Font("Figtree", 14, FontStyle.Bold);
+                    btn2.AutoSize = true;
+                    panel1.Controls.Add(btn2);
+
+                    i++;
+                }
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        private void ShowDetail(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            selectedOrder_No = btn.Tag.ToString();
+            DetailedOrderForm f = new DetailedOrderForm();
+            DetailedOrderForm.instance.LoadData();
+            f.ShowDialog();
+        }
+
+
+
+
+
+
         internal void LoadCurrentOrders()
         {
             Siparisler_Listbox.Items.Clear();
@@ -33,12 +95,14 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi == null && x.IptalTarihi == null)).ToList();
 
-            foreach (var item in siparisler)
+            LoadOrders(siparisler);
+
+            /*foreach (var item in siparisler)
             {
                 var tahmini = Convert.ToDateTime(item.SiparisTarihi);
                 Siparisler_Listbox.Items.Add($"Sipariş Kodu: {item.Id} - Sipariş Tarihi: {item.SiparisTarihi} - Tutar: {item.Tutar} - " +
                     $"Adres: {item.TeslimSehri} {item.TeslimAdresi} - Tahmini Teslim Tarihi: {tahmini.Date.AddDays(3)}");
-            }
+            }*/
         }
 
         private void CurrentOrders_Btn_Click(object sender, EventArgs e)
@@ -53,12 +117,15 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi != null && x.IptalTarihi == null)).ToList();
 
-            foreach (var item in siparisler)
+            LoadOrders(siparisler);
+
+
+            /*foreach (var item in siparisler)
             {
                 var tahmini = Convert.ToDateTime(item.SiparisTarihi);
                 Siparisler_Listbox.Items.Add($"Sipariş Kodu: {item.Id} - Sipariş Tarihi: {item.SiparisTarihi} - Tutar: {item.Tutar} - " +
                     $"Adres: {item.TeslimSehri} {item.TeslimAdresi} - Tahmini Teslim Tarihi: {tahmini.Date.AddDays(3)}");
-            }
+            }*/
         }
 
         private void CancelledOrders_Btn_Click(object sender, EventArgs e)
@@ -68,12 +135,15 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi == null && x.IptalTarihi != null)).ToList();
 
-            foreach (var item in siparisler)
+            LoadOrders(siparisler);
+
+
+            /*foreach (var item in siparisler)
             {
                 var tahmini = Convert.ToDateTime(item.SiparisTarihi);
                 Siparisler_Listbox.Items.Add($"Sipariş Kodu: {item.Id} - Sipariş Tarihi: {item.SiparisTarihi} - Tutar: {item.Tutar} - " +
                     $"Adres: {item.TeslimSehri} {item.TeslimAdresi} - Tahmini Teslim Tarihi: {tahmini.Date.AddDays(3)}");
-            }
+            }*/
         }
 
         private void ViewDetails_Btn_Click(object sender, EventArgs e)
@@ -94,9 +164,12 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
         {
             try
             {
-                var siparis = Siparisler_Listbox.SelectedItem.ToString().Split(':', '-');
 
-                var order = DB_Connection.db.Siparisler.Find(siparis[1].Trim());
+                Button btn = (Button)sender;
+
+                //var siparis = Siparisler_Listbox.SelectedItem.ToString().Split(':', '-');
+
+                var order = DB_Connection.db.Siparisler.Find(btn.Tag.ToString());
 
                 if (order != null)
                 {

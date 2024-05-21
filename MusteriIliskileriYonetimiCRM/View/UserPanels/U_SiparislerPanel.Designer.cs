@@ -35,6 +35,7 @@
             this.CancelledOrders_Btn = new System.Windows.Forms.Button();
             this.CurrentOrders_Btn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,10 +45,11 @@
             this.Siparisler_Listbox.FormattingEnabled = true;
             this.Siparisler_Listbox.HorizontalScrollbar = true;
             this.Siparisler_Listbox.ItemHeight = 23;
-            this.Siparisler_Listbox.Location = new System.Drawing.Point(3, 172);
+            this.Siparisler_Listbox.Location = new System.Drawing.Point(6, 486);
             this.Siparisler_Listbox.Name = "Siparisler_Listbox";
             this.Siparisler_Listbox.Size = new System.Drawing.Size(1039, 395);
             this.Siparisler_Listbox.TabIndex = 10;
+            this.Siparisler_Listbox.Visible = false;
             // 
             // CancelOrder_Btn
             // 
@@ -55,12 +57,13 @@
             this.CancelOrder_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CancelOrder_Btn.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.CancelOrder_Btn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.CancelOrder_Btn.Location = new System.Drawing.Point(414, 101);
+            this.CancelOrder_Btn.Location = new System.Drawing.Point(814, 3);
             this.CancelOrder_Btn.Name = "CancelOrder_Btn";
             this.CancelOrder_Btn.Size = new System.Drawing.Size(216, 65);
             this.CancelOrder_Btn.TabIndex = 11;
             this.CancelOrder_Btn.Text = "Siparişi İptal Et";
             this.CancelOrder_Btn.UseVisualStyleBackColor = false;
+            this.CancelOrder_Btn.Visible = false;
             this.CancelOrder_Btn.Click += new System.EventHandler(this.CancelOrder_Btn_Click);
             // 
             // ViewDetails_Btn
@@ -75,6 +78,7 @@
             this.ViewDetails_Btn.TabIndex = 11;
             this.ViewDetails_Btn.Text = "Detaylı Göster";
             this.ViewDetails_Btn.UseVisualStyleBackColor = false;
+            this.ViewDetails_Btn.Visible = false;
             this.ViewDetails_Btn.Click += new System.EventHandler(this.ViewDetails_Btn_Click);
             // 
             // DeliveredOrders_Btn
@@ -111,7 +115,7 @@
             this.CurrentOrders_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CurrentOrders_Btn.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.CurrentOrders_Btn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.CurrentOrders_Btn.Location = new System.Drawing.Point(826, 3);
+            this.CurrentOrders_Btn.Location = new System.Drawing.Point(592, 3);
             this.CurrentOrders_Btn.Name = "CurrentOrders_Btn";
             this.CurrentOrders_Btn.Size = new System.Drawing.Size(216, 65);
             this.CurrentOrders_Btn.TabIndex = 11;
@@ -129,17 +133,26 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Location = new System.Drawing.Point(6, 172);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1036, 395);
+            this.panel1.TabIndex = 12;
+            // 
             // U_SiparislerPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.CurrentOrders_Btn);
             this.Controls.Add(this.CancelledOrders_Btn);
             this.Controls.Add(this.DeliveredOrders_Btn);
-            this.Controls.Add(this.ViewDetails_Btn);
             this.Controls.Add(this.CancelOrder_Btn);
             this.Controls.Add(this.Siparisler_Listbox);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.ViewDetails_Btn);
             this.Name = "U_SiparislerPanel";
             this.Size = new System.Drawing.Size(1045, 570);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -156,5 +169,6 @@
         private System.Windows.Forms.Button DeliveredOrders_Btn;
         private System.Windows.Forms.Button CancelledOrders_Btn;
         private System.Windows.Forms.Button CurrentOrders_Btn;
+        private System.Windows.Forms.Panel panel1;
     }
 }

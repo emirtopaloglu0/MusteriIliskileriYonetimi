@@ -63,8 +63,13 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             u_SepetPanel1.Hide();
             u_SiparislerPanel1.Show();
             u_UrunlerPanel1.Hide();
-            U_SiparislerPanel.instance.LoadCurrentOrders();
-            
+            //U_SiparislerPanel.instance.LoadCurrentOrders();
+            var user = DB_Connection.db.Musteriler.Find(Settings.Default.U_Id);
+            var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi == null && x.IptalTarihi == null)).ToList();
+
+            U_SiparislerPanel.instance.LoadOrders(siparisler);
+
+
         }
         internal void ShowUrunler(object sender, EventArgs e)
         {
@@ -80,7 +85,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
         private void u_UrunlerPanel1_Load(object sender, EventArgs e)
         {
-            ShowSiparisler(sender, e);
+            //ShowSiparisler(sender, e);
         }
     }
 }
