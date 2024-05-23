@@ -93,9 +93,16 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
         private void ViewTickets_Btn_Click(object sender, EventArgs e)
         {
-            SupportHistoryForm f = new SupportHistoryForm();
-            SupportHistoryForm.instance.LoadData();
-            f.ShowDialog();
+            if(Siparisler_Listbox.SelectedIndex > -1)
+            {
+                var siparis = Siparisler_Listbox.SelectedItem.ToString().Split(':', '-');
+
+                SupportHistoryForm f = new SupportHistoryForm();
+                SupportHistoryForm.instance.LoadData();
+                SupportHistoryForm.instance.siparisId = siparis[1].Trim();
+                f.ShowDialog();
+            }
+            
         }
     }
 }

@@ -15,6 +15,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
     public partial class SupportHistoryForm : Form
     {
         public static SupportHistoryForm instance;
+        public string siparisId = string.Empty;
         public SupportHistoryForm()
         {
             InitializeComponent();
@@ -28,7 +29,8 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
         internal void LoadData()
         {
-            var destek = DB_Connection.db.DestekTalepleri.Where(x => x.MusteriId == Properties.Settings.Default.U_Id).ToList();
+            var destek = DB_Connection.db.DestekTalepleri.Where(x => x.MusteriId == Properties.Settings.Default.U_Id && 
+            x.SiparisId == siparisId).ToList();
             foreach (var item in destek)
             {
                 if(item.YoneticiCevap != null && item.TamamlandiMi == false)

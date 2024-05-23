@@ -31,7 +31,6 @@
             this.Urunler_Listbox = new System.Windows.Forms.ListBox();
             this.Kategoriler_Combobox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.AddCart_Btn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -69,20 +68,6 @@
             this.label1.Size = new System.Drawing.Size(85, 23);
             this.label1.TabIndex = 2;
             this.label1.Text = "Kategori";
-            // 
-            // AddCart_Btn
-            // 
-            this.AddCart_Btn.BackColor = System.Drawing.Color.Teal;
-            this.AddCart_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddCart_Btn.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.AddCart_Btn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.AddCart_Btn.Location = new System.Drawing.Point(398, 75);
-            this.AddCart_Btn.Name = "AddCart_Btn";
-            this.AddCart_Btn.Size = new System.Drawing.Size(216, 45);
-            this.AddCart_Btn.TabIndex = 6;
-            this.AddCart_Btn.Text = "Sepete Ekle";
-            this.AddCart_Btn.UseVisualStyleBackColor = false;
-            this.AddCart_Btn.Click += new System.EventHandler(this.AddCart_Btn_Click);
             // 
             // button1
             // 
@@ -123,7 +108,6 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.AddCart_Btn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Kategoriler_Combobox);
             this.Controls.Add(this.Urunler_Listbox);
@@ -140,7 +124,6 @@
         private System.Windows.Forms.ListBox Urunler_Listbox;
         private System.Windows.Forms.ComboBox Kategoriler_Combobox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button AddCart_Btn;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel1;

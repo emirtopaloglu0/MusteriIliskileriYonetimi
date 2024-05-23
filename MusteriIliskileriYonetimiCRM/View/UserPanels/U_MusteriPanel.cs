@@ -24,6 +24,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
         internal void LoggedIn()
         {
             Name_Label.Text = Settings.Default.U_Adi + " " + Settings.Default.U_Soyadi;
+            ShowSiparisler(null,null);
         }
 
 
