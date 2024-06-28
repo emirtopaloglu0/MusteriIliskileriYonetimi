@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MusteriIliskileriYonetimiCRM.Properties;
 
 namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 {
@@ -22,19 +23,21 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
         private void ChangePass_Btn_Click(object sender, EventArgs e)
         {
-            var musteri = DB_Connection.db.Musteriler.Find(Properties.Settings.Default.U_Id);
+            var musteri = DB_Connection.db.Musteriler.Find(Settings.Default.U_Id);
 
             if (musteri.Sifre == Oldpass_Box.Text)
             {
                 SoruMesajlari.instance.SifreDegis();
-                if (SoruMesajlari.instance.res == DialogResult.Yes)
-                {
-                    musteri.Sifre = NewPass_Box.Text;
-                    DB_Connection.db.SaveChanges();
-                    Oldpass_Box.Text = string.Empty;
-                    NewPass_Box.Text = string.Empty;
-                    Popup.instance.Success("Şifre Değiştirildi!", "Şifreniz Başarıyla Değiştirilmiştir. Şifrenizi Unutmayın.");
-                }
+                if (SoruMesajlari.instance.res != DialogResult.Yes)
+                { return; }
+
+                musteri.Sifre = NewPass_Box.Text;
+                DB_Connection.db.SaveChanges();
+                Oldpass_Box.Text = string.Empty;
+                NewPass_Box.Text = string.Empty;
+                Popup.instance.Success("Şifre Değiştirildi!",
+                    "Şifreniz Başarıyla Değiştirilmiştir. Şifrenizi Unutmayın.");
+
             }
             else
                 HataMesajlari.SifreYanlis();
@@ -49,7 +52,6 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             else
             {
                 NewPass_Box.PasswordChar = '*';
-
             }
         }
     }

@@ -26,19 +26,18 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
         internal void LoadData()
         {
             Siparisler_Listbox.Items.Clear();
-            var user = DB_Connection.db.Musteriler.Find(Settings.Default.U_Id);
-
+            var musteri = DB_Connection.db.Musteriler.Find(Settings.Default.U_Id);
             var siparisler = DB_Connection.db.Siparisler.
                 Where
-                (x => x.MusteriId == user.Id && (x.TeslimTarihi != null && x.IptalTarihi == null)).ToList();
+                (x => x.MusteriId == musteri.Id && (x.TeslimTarihi != null && x.IptalTarihi == null)).ToList();
 
-            foreach (var item in siparisler)
+            foreach (var siparis in siparisler)
             {
-                var tahmini = Convert.ToDateTime(item.SiparisTarihi);
+                var tahmini = Convert.ToDateTime(siparis.SiparisTarihi);
                 Siparisler_Listbox.Items.
-                    Add($"Sipariş Kodu: {item.Id} - Sipariş Tarihi: {item.SiparisTarihi} - " +
-                    $"Tutar: {item.Tutar} - " +
-                    $"Adres: {item.TeslimSehri} {item.TeslimAdresi} - " +
+                    Add($"Sipariş Kodu: {siparis.Id} - Sipariş Tarihi: {siparis.SiparisTarihi} - " +
+                    $"Tutar: {siparis.Tutar} - " +
+                    $"Adres: {siparis.TeslimSehri} {siparis.TeslimAdresi} - " +
                     $"Tahmini Teslim Tarihi: {tahmini.Date.AddDays(3)}");
             }
             LoadSupport();
@@ -46,10 +45,10 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
         private void LoadSupport()
         {
             Support_Combobox.Items.Clear();
-            var kargolar = DB_Connection.db.DestekKategorileri.ToList();
-            foreach (var kargo in kargolar)
+            var supportCategories = DB_Connection.db.DestekKategorileri.ToList();
+            foreach (var supportCategory in supportCategories)
             {
-                Support_Combobox.Items.Add(kargo.Ad.Trim());
+                Support_Combobox.Items.Add(supportCategory.Ad.Trim());
             }
         }
 
@@ -78,6 +77,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                         destek.MusteriId = Settings.Default.U_Id;
                         DB_Connection.db.DestekTalepleri.Add(destek);
                         DB_Connection.db.SaveChanges();
+
                         BasariliMesajlari.TalepOlusturuldu();
                     }
                     else

@@ -42,7 +42,6 @@ namespace MusteriIliskileriYonetimiCRM
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             a_AdminPanel1.Hide();
             u_MusteriPanel1.Hide();
         }

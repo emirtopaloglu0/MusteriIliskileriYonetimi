@@ -28,13 +28,22 @@ namespace MusteriIliskileriYonetimiCRM.View.AdminPanels
 
         private void Gonder_Btn_Click(object sender, EventArgs e)
         {
-            var destek = DB_Connection.db.DestekTalepleri.Find(A_AdminPanel.instance.destek_Id);
+            try
+            {
+                var destek = DB_Connection.db.DestekTalepleri.Find(A_AdminPanel.instance.destek_Id);
+                destek.YoneticiCevap = Cevap_Box.Text;
+                destek.IslemTarihi = DateTime.Now;
+                DB_Connection.db.SaveChanges();
+                BasariliMesajlari.IslemeAlindi();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                HataMesajlari.CatchError(ex);
+            }
 
-            destek.YoneticiCevap = Cevap_Box.Text;
-            destek.IslemTarihi = DateTime.Now;
-            DB_Connection.db.SaveChanges();
-            BasariliMesajlari.IslemeAlindi();
-            Close();
+
+
         }
     }
 }

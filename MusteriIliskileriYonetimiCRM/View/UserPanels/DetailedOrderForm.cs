@@ -22,12 +22,15 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
         internal void LoadData()
         {
-            var siparis = DB_Connection.db.Siparis_Detay.Where(x=> x.SiparisId == U_SiparislerPanel.instance.selectedOrder_No).ToList();
+            var selectedOrder = U_SiparislerPanel.instance.selectedOrder_No;
+            var siparis = DB_Connection.db.Siparis_Detay.Where(x=> x.SiparisId == selectedOrder).ToList();
             foreach (var item in siparis)
             {
                 var urun = DB_Connection.db.Urunler.Find(item.UrunId);
                 var fiyat = urun.Fiyat.ToString().Trim();
-                Siparis_Listbox.Items.Add($"Ürün Adı: {urun.Ad} - Birim Fiyatı: {fiyat.Substring(0, fiyat.Length - 2)} - Adet: {item.Adet}");
+                Siparis_Listbox.Items.
+                    Add($"Ürün Adı: {urun.Ad} - Birim Fiyatı: {fiyat.Substring(0, fiyat.Length - 2)} - " +
+                    $"Adet: {item.Adet}");
             }
         }
 

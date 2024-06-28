@@ -58,7 +58,6 @@ namespace MusteriIliskileriYonetimiCRM.View.Login_Register
             else
             {
                 Pass_Box.PasswordChar = '*';
-
             }
         }
 

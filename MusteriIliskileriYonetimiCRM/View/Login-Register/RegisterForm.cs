@@ -30,39 +30,40 @@ namespace MusteriIliskileriYonetimiCRM.View.Login_Register
 
         private void Register_Btn_Click(object sender, EventArgs e)
         {
-            if (Name_Box.Text != string.Empty && Surname_Box.Text != string.Empty && IdentityNo_Box.Text != string.Empty
-                && Pass_Box.Text != string.Empty && Mail_Box.Text != string.Empty && Address_RichBox.Text != string.Empty
+            if (Name_Box.Text != string.Empty && Surname_Box.Text != string.Empty
+                && IdentityNo_Box.Text != string.Empty
+                && Pass_Box.Text != string.Empty
+                && Mail_Box.Text != string.Empty
+                && Address_RichBox.Text != string.Empty
                 && (Male_RadioBtn.Checked || Female_RadioBtn.Checked))
             {
                 if (C_Musteri.instance.TcDogrula(IdentityNo_Box.Text))
                 {
                     SoruMesajlari.instance.Kayit();
-                    if (SoruMesajlari.instance.res == DialogResult.Yes)
+                    if (SoruMesajlari.instance.res != DialogResult.Yes)
+                    { return; }
+
+                    ActiveForm.UseWaitCursor = true;
+                    char cinsiyet;
+
+                    if (Male_RadioBtn.Checked) cinsiyet = 'E';
+                    else cinsiyet = 'K';
+
+                    if (C_Musteri.instance.Register(Name_Box.Text, Surname_Box.Text, IdentityNo_Box.Text,
+                        Pass_Box.Text, Mail_Box.Text, cinsiyet, Address_RichBox.Text))
                     {
-                        RegisterForm.ActiveForm.UseWaitCursor = true;
-                        char cinsiyet;
-
-                        if (Male_RadioBtn.Checked) cinsiyet = 'E';
-                        else cinsiyet = 'K';
-
-                        if(C_Musteri.instance.Register(Name_Box.Text, Surname_Box.Text, IdentityNo_Box.Text, 
-                            Pass_Box.Text, Mail_Box.Text, cinsiyet, Address_RichBox.Text))
-                        {
-                            BasariliMesajlari.KayitBasarili();
-                            RegisterForm.ActiveForm.UseWaitCursor = false;
-                            Close();
-                        }
+                        BasariliMesajlari.KayitBasarili();
+                        ActiveForm.UseWaitCursor = false;
+                        Close();
                     }
+
                 }
                 else
                     HataMesajlari.TcKimlikYanlis();
             }
             else
                 HataMesajlari.BosOlamaz();
-
         }
-
-
 
         private void TextboxChanged(object sender, EventArgs e)
         {
@@ -83,7 +84,6 @@ namespace MusteriIliskileriYonetimiCRM.View.Login_Register
             else
             {
                 Pass_Box.PasswordChar = '*';
-
             }
         }
     }

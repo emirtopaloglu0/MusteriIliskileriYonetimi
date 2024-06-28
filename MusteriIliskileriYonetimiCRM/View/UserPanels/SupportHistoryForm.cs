@@ -29,7 +29,9 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
         internal void LoadData()
         {
-            var destek = DB_Connection.db.DestekTalepleri.Where(x => x.MusteriId == Properties.Settings.Default.U_Id && 
+            var userId = Properties.Settings.Default.U_Id;
+            var destek = DB_Connection.db.DestekTalepleri.
+                Where(x => x.MusteriId == userId && 
             x.SiparisId == siparisId).ToList();
             foreach (var item in destek)
             {
@@ -43,7 +45,10 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                 {
                     durum = "Tamamlandı";
                 }
-                Siparis_Listbox.Items.Add($"Sipariş Kodu: {item.SiparisId} - Durum: {durum} - Destek Türü: {kategori.Ad} - Yönetici Mesajı: {item.YoneticiCevap} - " +
+                Siparis_Listbox.Items.
+                    Add($"Sipariş Kodu: {item.SiparisId} - " +
+                    $"Durum: {durum} - Destek Türü: {kategori.Ad} - " +
+                    $"Yönetici Mesajı: {item.YoneticiCevap} - " +
                     $"Talep Tarihi: {item.TalepTarihi} - İşleme Alınma Tarihi: {item.IslemTarihi}");
             }
         }
