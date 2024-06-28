@@ -1,4 +1,5 @@
-﻿using MusteriIliskileriYonetimiCRM.Class.Connection;
+﻿using MusteriIliskileriYonetimiCRM.Class.Cart;
+using MusteriIliskileriYonetimiCRM.Class.Connection;
 using MusteriIliskileriYonetimiCRM.Class.Order;
 using MusteriIliskileriYonetimiCRM.Mesajlar;
 using MusteriIliskileriYonetimiCRM.Model;
@@ -17,7 +18,9 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
     public partial class U_SepetPanel : UserControl
     {
         public static U_SepetPanel instance;
-        public List<int> list = new List<int>(); //idlerden isimleri gelecek
+        internal List<int> cartList; //idlerden isimleri gelecek
+        //internal C_Cart cart = new C_Cart();
+
         public U_SepetPanel()
         {
             InitializeComponent();
@@ -39,36 +42,41 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             try
             {
                 Urunler_Listbox.Items.Clear();
-                foreach (var item in list)
+                cartList = C_Cart.instance.GetCartList();
+
+                foreach (var cartItem in cartList)
                 {
-                    var deger = item;
-                    var u = DB_Connection.db.Urunler.Find(item);
-                    var kat = DB_Connection.db.Kategoriler.Find(u.Kategori_Id);
-                    var fiyat = u.Fiyat.ToString().Trim();
-                    Urunler_Listbox.Items.Add($"Ürün Kodu: {u.Id} - Ürün: {u.Ad} - Kategori: {kat.Ad} - Fiyat: {fiyat.Substring(0, fiyat.Length - 2)} - Stok: {u.Stok}\n");
+                    //var deger = cartItem;
+                    var product = DB_Connection.db.Urunler.Find(cartItem);
+                    var category = DB_Connection.db.Kategoriler.Find(product.Kategori_Id);
+                    var price = product.Fiyat.ToString().Trim();
+                    Urunler_Listbox.Items.Add($"Ürün Kodu: {product.Id} - Ürün: {product.Ad} - Kategori: {category.Ad} - Fiyat: {price.Substring(0, price.Length - 2)}\n");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                HataMesajlari.CatchError(ex);
             }
-
-
         }
 
         private void RemoveItem_Btn_Click(object sender, EventArgs e)
         {
-            if ((Urunler_Listbox.SelectedIndex != -1))
+            if ((Urunler_Listbox.SelectedIndex <= -1))
             {
-                SoruMesajlari.instance.UrunSilme();
-                if (SoruMesajlari.instance.res == DialogResult.Yes)
-                {
-                    var urun = Urunler_Listbox.SelectedItem.ToString().Split(':', '-');
-                    Urunler_Listbox.Items.Remove(Urunler_Listbox.SelectedItem);
-                    list.Remove(Int32.Parse(urun[1]));
-                }
+                return;
             }
+            SoruMesajlari.instance.UrunSilme();
+            if (SoruMesajlari.instance.res == DialogResult.Yes)
+            {
+                var urun = Urunler_Listbox.SelectedItem.ToString().Split(':', '-');
+                Urunler_Listbox.Items.Remove(Urunler_Listbox.SelectedItem);
 
+                //C_Cart cart = new C_Cart();
+                C_Cart.instance.RemoveItem(Int32.Parse(urun[1]));
+                LoadCart();
+
+                //cartList.Remove(Int32.Parse(urun[1]));
+            }
         }
 
         private void ClearCart_Btn_Click(object sender, EventArgs e)
@@ -77,22 +85,27 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             if (SoruMesajlari.instance.res == DialogResult.Yes)
             {
                 Urunler_Listbox.Items.Clear();
-                list.Clear();
+
+                //C_Cart cart = new C_Cart();
+                C_Cart.instance.ClearCart();
+
+                LoadCart();
+                //cartList.Clear();
             }
         }
 
-
+        //sepet onaylanmadan sepet tutarını görüntüleyebilsin. sepet yüklenirken bu hesaplama yapılabilir.
         private bool StokKontrol()
         {
-            foreach (var j in Urunler_Listbox.Items)
+            foreach (var item1 in Urunler_Listbox.Items)
             {
 
                 short adet = 0;
-                var urun = j.ToString().Split(':', '-');
+                var urun = item1.ToString().Split(':', '-');
 
-                foreach (var k in Urunler_Listbox.Items)
+                foreach (var item2 in Urunler_Listbox.Items)
                 {
-                    var urun2 = k.ToString().Split(':', '-');
+                    var urun2 = item2.ToString().Split(':', '-');
 
                     if (urun[1] == urun2[1])
                     {
@@ -102,7 +115,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                 }
 
                 var urunler = DB_Connection.db.Urunler.Find(Int32.Parse(urun[1]));
-                if(Convert.ToInt16(urunler.Stok - adet) < 0)
+                if (Convert.ToInt16(urunler.Stok - adet) < 0)
                 {
                     return false;
                 }
@@ -112,99 +125,104 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
         private void ConfirmCart_Btn_Click(object sender, EventArgs e)
         {
-
             if (Kargo_Combobox.SelectedIndex == -1 || Cities_Combobox.SelectedIndex == -1 || Address_Box.Text == string.Empty)
             {
                 HataMesajlari.BosOlamaz();
                 return;
             }
 
-
-            if (StokKontrol() == false)
+            if (!StokKontrol())
             {
                 HataMesajlari.StokHatasi();
                 return;
             }
 
             SoruMesajlari.instance.SepetOnay();
-            if (SoruMesajlari.instance.res == DialogResult.Yes)
+            if (SoruMesajlari.instance.res != DialogResult.Yes)
             {
-                if (C_Order.instance.CreateOrder())
+                return;
+            }
+
+            if (!C_Order.instance.CreateOrder())
+            {
+                return;
+            }
+
+            try
+            {
+                decimal tutar = 0;
+                var siparis_No = C_Order.instance.siparis_no;
+
+                foreach (var item1 in Urunler_Listbox.Items)
                 {
-                    try
-                    {
-                        decimal tutar = 0;
-                        var Siparis_No = C_Order.instance.siparis_no;
 
-                        foreach (var j in Urunler_Listbox.Items)
+                    short adet = 0;
+                    var urun = item1.ToString().Split(':', '-');
+
+                    foreach (var item2 in Urunler_Listbox.Items)
+                    {
+                        var urun2 = item2.ToString().Split(':', '-');
+
+                        if (urun[1] == urun2[1])
                         {
-
-                            short adet = 0;
-                            var urun = j.ToString().Split(':', '-');
-
-                            foreach (var k in Urunler_Listbox.Items)
-                            {
-                                var urun2 = k.ToString().Split(':', '-');
-
-                                if (urun[1] == urun2[1])
-                                {
-                                    adet++;
-                                    
-                                }
-                            }
-
-                            var s_detay = DB_Connection.db.Siparis_Detay.Where(x => x.SiparisId == Siparis_No).ToList();
-
-
-                            foreach (var item in s_detay)
-                            {
-                                if (item.UrunId == Int32.Parse(urun[1]))
-                                {
-                                    goto devam;
-                                }
-                            }
-                            var urunler = DB_Connection.db.Urunler.Find(Int32.Parse(urun[1]));
-                            urunler.Stok = Convert.ToInt16(urunler.Stok - adet);
-
-
-                            Siparis_Detay detay = new Siparis_Detay();
-                            detay.SiparisId = Siparis_No;
-                            detay.UrunId = Int32.Parse(urun[1]);
-                            var fiyat = Convert.ToDecimal(urun[7]);
-                            detay.Urun_Fiyat = fiyat;
-                            detay.Adet = adet;
-                            DB_Connection.db.Siparis_Detay.Add(detay);
-                            DB_Connection.db.SaveChanges();
-
-                            tutar += fiyat * Convert.ToDecimal(adet);
-                        devam:;
-
-
-
-
+                            adet++;
                         }
-                        var siparisler = DB_Connection.db.Siparisler.Find(Siparis_No);
-                        siparisler.Tutar = tutar;
-                        siparisler.Kargo_Id = Kargo_Combobox.SelectedIndex + 1;
-                        siparisler.TeslimSehri = Cities_Combobox.SelectedItem.ToString().Trim();
-                        siparisler.TeslimAdresi = Address_Box.Text;
-                        DB_Connection.db.SaveChanges();
-
-                        BasariliMesajlari.SatinAlim();
-
-                        Urunler_Listbox.Items.Clear();
-                        list.Clear();
-                        Cities_Combobox.SelectedItem = null;
-                        Address_Box.Text = null;
-
                     }
-                    catch (Exception ex)
+                    var s_detay = DB_Connection.db.Siparis_Detay.Where(x => x.SiparisId == siparis_No).ToList();
+
+                    foreach (var item in s_detay)
                     {
-                        HataMesajlari.CatchError(ex);
+                        if (item.UrunId == Int32.Parse(urun[1]))
+                        {
+                            goto devam;
+                        }
                     }
+                    var urunler = DB_Connection.db.Urunler.Find(Int32.Parse(urun[1]));
+                    urunler.Stok = Convert.ToInt16(urunler.Stok - adet);
+                    var fiyat = Convert.ToDecimal(urun[7]);
+
+                    AddOrderDetail(siparis_No, adet, urun, fiyat);
+
+                    tutar += fiyat * Convert.ToDecimal(adet);
+                devam:;
 
                 }
+
+                UpdateOrderDB(tutar, siparis_No);
+
+                BasariliMesajlari.SatinAlim();
+
+                Urunler_Listbox.Items.Clear();
+                cartList.Clear();
+                Cities_Combobox.SelectedItem = null;
+                Address_Box.Text = null;
+
             }
+            catch (Exception ex)
+            {
+                HataMesajlari.CatchError(ex);
+            }
+        }
+
+        private void UpdateOrderDB(decimal tutar, string siparis_No)
+        {
+            var siparisler = DB_Connection.db.Siparisler.Find(siparis_No);
+            siparisler.Tutar = tutar;
+            siparisler.Kargo_Id = Kargo_Combobox.SelectedIndex + 1;
+            siparisler.TeslimSehri = Cities_Combobox.SelectedItem.ToString().Trim();
+            siparisler.TeslimAdresi = Address_Box.Text;
+            DB_Connection.db.SaveChanges();
+        }
+
+        private static void AddOrderDetail(string siparis_No, short adet, string[] urun, decimal fiyat)
+        {
+            Siparis_Detay detay = new Siparis_Detay();
+            detay.SiparisId = siparis_No;
+            detay.UrunId = Int32.Parse(urun[1]);
+            detay.Urun_Fiyat = fiyat;
+            detay.Adet = adet;
+            DB_Connection.db.Siparis_Detay.Add(detay);
+            DB_Connection.db.SaveChanges();
         }
     }
 }

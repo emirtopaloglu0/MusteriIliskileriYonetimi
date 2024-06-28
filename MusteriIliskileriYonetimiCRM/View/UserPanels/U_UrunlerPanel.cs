@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MusteriIliskileriYonetimiCRM.Class.Popup;
+using MusteriIliskileriYonetimiCRM.Class.Cart;
+using MusteriIliskileriYonetimiCRM.Mesajlar;
 
 namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 {
@@ -31,8 +33,6 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                 Kategoriler_Combobox.Items.Add(k.Ad.Trim());
             }
         }
-
-
         internal void LoadData(List<Urunler> urunler)
         {
             try
@@ -76,16 +76,11 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                     panel1.Controls.Add(btn);
                     i++;
                 }
-
-
             }
-            catch
+            catch (Exception ex)
             {
-
+                HataMesajlari.CatchError(ex);
             }
-
-
-
         }
 
         private void CartAdd(object sender, EventArgs e)
@@ -110,11 +105,16 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
         private void AddCart_Btn_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            var tag = btn.Tag;
+            var tag = Convert.ToInt32(btn.Tag);
             var urun = DB_Connection.db.Urunler.Find(tag);
             //var urun = Urunler_Listbox.SelectedItem.ToString().Split(':', '-');
             Popup.instance.Success("Sepete Eklendi", $"{urun.Ad.Trim()} sepete eklendi");
-            U_SepetPanel.instance.list.Add(Int32.Parse(tag.ToString().Trim()));
+
+
+            //C_Cart cart = new C_Cart();
+            C_Cart.instance.AddCartList(tag);
+
+            //U_SepetPanel.instance.cartListOld.Add(Int32.Parse(tag.ToString().Trim()));
 
         }
     }

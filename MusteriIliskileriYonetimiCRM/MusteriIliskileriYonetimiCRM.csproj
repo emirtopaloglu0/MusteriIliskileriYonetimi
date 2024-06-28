@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Cart\C_Cart.cs" />
     <Compile Include="Class\Connection\DB_Connection.cs" />
     <Compile Include="Class\Musteri\C_Musteri.cs" />
     <Compile Include="Class\Order\C_Order.cs" />
@@ -192,6 +193,7 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -205,18 +207,23 @@
     </Compile>
     <EmbeddedResource Include="View\AdminPanels\A_AdminPanel.resx">
       <DependentUpon>A_AdminPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\AdminPanels\A_DestekCevapForm.resx">
       <DependentUpon>A_DestekCevapForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Login-Register\LoginPanel.resx">
       <DependentUpon>LoginPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Login-Register\RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\UserPanels\DetailedOrderForm.resx">
       <DependentUpon>DetailedOrderForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\UserPanels\SupportHistoryForm.resx">
       <DependentUpon>SupportHistoryForm.cs</DependentUpon>
