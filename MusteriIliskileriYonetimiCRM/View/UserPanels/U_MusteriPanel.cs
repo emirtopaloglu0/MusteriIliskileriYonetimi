@@ -27,8 +27,6 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             ShowSiparisler(null,null);
         }
 
-
-
         internal void ShowAyarlar(object sender, EventArgs e)
         {
             u_AyarlarPanel1.Show();

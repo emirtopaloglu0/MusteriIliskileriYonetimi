@@ -24,7 +24,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
         {
             var musteri = DB_Connection.db.Musteriler.Find(Properties.Settings.Default.U_Id);
 
-            if ((musteri.Sifre == Oldpass_Box.Text))
+            if (musteri.Sifre == Oldpass_Box.Text)
             {
                 SoruMesajlari.instance.SifreDegis();
                 if (SoruMesajlari.instance.res == DialogResult.Yes)

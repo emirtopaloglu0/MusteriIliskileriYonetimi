@@ -26,8 +26,6 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             instance = this;
         }
 
-
-
         internal void LoadOrders(List<Siparisler> siparisler, bool isCurrent)
         {
             try
@@ -66,18 +64,14 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                         btn2.AutoSize = true;
                         panel1.Controls.Add(btn2);
                     }
-
-
                     i++;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                HataMesajlari.CatchError(ex);
             }
-
         }
-
         private void ShowDetail(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -86,11 +80,6 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             DetailedOrderForm.instance.LoadData();
             f.ShowDialog();
         }
-
-
-
-
-
 
         internal void LoadCurrentOrders()
         {
@@ -198,9 +187,9 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                 else
                     HataMesajlari.SatiriSeciniz();
             }
-            catch
+            catch (Exception ex)
             {
-
+                HataMesajlari.CatchError(ex);
             }
 
         }
