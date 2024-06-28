@@ -26,17 +26,19 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             instance = this;
         }
 
-        internal void LoadOrders(List<Siparisler> siparisler, bool isCurrent)
+        internal void LoadOrders(List<Siparisler> siparisler)
         {
             try
             {
+                //siparisler = siparisler.OrderByDescending(x => x.SiparisTarihi).ToList();
                 panel1.Controls.Clear();
                 int i = 1;
                 foreach (var item in siparisler)
                 {
                     Label label = new Label();
                     string tutar = item.Tutar.ToString();
-                    label.Text = "Sipariş Tarihi: " + item.SiparisTarihi.ToString() + " \nTutar: " + tutar.Substring(0, tutar.Length - 2) + "\n";
+                    label.Text = "Sipariş Tarihi: " + item.SiparisTarihi.ToString() 
+                        + " \nTutar: " + tutar.Substring(0, tutar.Length - 2) + "\n";
                     label.Tag = item.Id;
                     label.Font = new Font("Figtree", 14, FontStyle.Bold);
                     label.AutoSize = true;
@@ -53,7 +55,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                     btn.AutoSize = true;
                     panel1.Controls.Add(btn);
 
-                    if (isCurrent)
+                    if (item.TeslimTarihi == null)
                     {
                         Button btn2 = new Button();
                         btn2.Tag = item.Id;
@@ -69,7 +71,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             }
             catch (Exception ex)
             {
-                HataMesajlari.CatchError(ex);
+                //HataMesajlari.CatchError(ex);
             }
         }
         private void ShowDetail(object sender, EventArgs e)
@@ -88,7 +90,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi == null && x.IptalTarihi == null)).ToList();
 
-            LoadOrders(siparisler, true);
+            LoadOrders(siparisler);
 
             /*foreach (var item in siparisler)
             {
@@ -110,7 +112,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi != null && x.IptalTarihi == null)).ToList();
 
-            LoadOrders(siparisler, false);
+            LoadOrders(siparisler);
 
 
             /*foreach (var item in siparisler)
@@ -128,7 +130,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi == null && x.IptalTarihi != null)).ToList();
 
-            LoadOrders(siparisler, false);
+            LoadOrders(siparisler);
 
 
             /*foreach (var item in siparisler)

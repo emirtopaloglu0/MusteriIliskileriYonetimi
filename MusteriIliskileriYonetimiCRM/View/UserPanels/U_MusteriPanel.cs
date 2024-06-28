@@ -66,7 +66,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             var user = DB_Connection.db.Musteriler.Find(Settings.Default.U_Id);
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi == null && x.IptalTarihi == null)).ToList();
 
-            U_SiparislerPanel.instance.LoadOrders(siparisler,true);
+            U_SiparislerPanel.instance.LoadOrders(siparisler);
 
 
         }
