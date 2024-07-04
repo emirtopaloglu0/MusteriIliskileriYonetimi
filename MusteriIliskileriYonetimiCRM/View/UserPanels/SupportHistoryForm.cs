@@ -37,7 +37,8 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             {
                 if(item.YoneticiCevap != null && item.TamamlandiMi == false)
                 {
-                    Popup.instance.Info("Talebinize Cevap Geldi", "Taleplerinizden birine yöneticiden cevap geldi");
+                    Popup.instance.
+                        Info("Talebinize Cevap Geldi", "Taleplerinizden birine yöneticiden cevap geldi");
                 }
                 string durum = "Devam Ediyor";
                 var kategori = DB_Connection.db.DestekKategorileri.Find(item.KategoriId);

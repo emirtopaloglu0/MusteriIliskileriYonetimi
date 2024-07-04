@@ -104,7 +104,6 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             }
         }
 
-        //sepet onaylanmadan sepet tutarını görüntüleyebilsin. sepet yüklenirken bu hesaplama yapılabilir.
         private bool StokKontrol()
         {
             foreach (var item1 in Urunler_Listbox.Items)

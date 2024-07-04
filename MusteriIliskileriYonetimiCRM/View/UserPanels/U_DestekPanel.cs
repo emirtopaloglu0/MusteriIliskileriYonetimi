@@ -29,7 +29,8 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             var musteri = DB_Connection.db.Musteriler.Find(Settings.Default.U_Id);
             var siparisler = DB_Connection.db.Siparisler.
                 Where
-                (x => x.MusteriId == musteri.Id && (x.TeslimTarihi != null && x.IptalTarihi == null)).ToList();
+                (x => x.MusteriId == musteri.Id && (x.TeslimTarihi != null && x.IptalTarihi == null))
+                .ToList();
 
             foreach (var siparis in siparisler)
             {
@@ -42,6 +43,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             }
             LoadSupport();
         }
+        
         private void LoadSupport()
         {
             Support_Combobox.Items.Clear();
@@ -68,15 +70,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                     {
                         var siparis = Siparisler_Listbox.SelectedItem.ToString().Split(':', '-');
 
-                        DestekTalepleri destek = new DestekTalepleri();
-                        destek.SiparisId = siparis[1].Trim();
-                        destek.KategoriId = Support_Combobox.SelectedIndex + 1;
-                        destek.Talep = Talep_Box.Text;
-                        destek.TalepTarihi = DateTime.Now;
-                        destek.TamamlandiMi = false;
-                        destek.MusteriId = Settings.Default.U_Id;
-                        DB_Connection.db.DestekTalepleri.Add(destek);
-                        DB_Connection.db.SaveChanges();
+                        AddSupportTicketToDb(siparis);
 
                         BasariliMesajlari.TalepOlusturuldu();
                     }
@@ -90,6 +84,19 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             {
                 HataMesajlari.CatchError(ex);
             }
+        }
+
+        private void AddSupportTicketToDb(string[] siparis)
+        {
+            DestekTalepleri destek = new DestekTalepleri();
+            destek.SiparisId = siparis[1].Trim();
+            destek.KategoriId = Support_Combobox.SelectedIndex + 1;
+            destek.Talep = Talep_Box.Text;
+            destek.TalepTarihi = DateTime.Now;
+            destek.TamamlandiMi = false;
+            destek.MusteriId = Settings.Default.U_Id;
+            DB_Connection.db.DestekTalepleri.Add(destek);
+            DB_Connection.db.SaveChanges();
         }
 
         private void ViewTickets_Btn_Click(object sender, EventArgs e)
