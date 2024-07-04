@@ -21,6 +21,8 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
         internal List<int> cartList; //idlerden isimleri gelecek
         //internal C_Cart cart = new C_Cart();
 
+        decimal tutar = 0;
+
         public U_SepetPanel()
         {
             InitializeComponent();
@@ -44,18 +46,26 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
                 Urunler_Listbox.Items.Clear();
                 cartList = C_Cart.instance.GetCartList();
 
+                tutar = 0;
+                TutarLbl.Text = "0 ₺";
+
                 foreach (var cartItem in cartList)
                 {
                     //var deger = cartItem;
                     var product = DB_Connection.db.Urunler.Find(cartItem);
                     var category = DB_Connection.db.Kategoriler.Find(product.Kategori_Id);
-                    var price = product.Fiyat.ToString().Trim();
-                    Urunler_Listbox.Items.Add($"Ürün Kodu: {product.Id} - Ürün: {product.Ad} - Kategori: {category.Ad} - Fiyat: {price.Substring(0, price.Length - 2)}\n");
+                    var strPrice = product.Fiyat.ToString().Trim();
+                    Urunler_Listbox.Items.Add($"Ürün Kodu: {product.Id} - Ürün: {product.Ad} - Kategori: {category.Ad} - Fiyat: {strPrice.Substring(0, strPrice.Length - 2)}\n");
+                    
+                    var price = Convert.ToDecimal(strPrice);
+                    tutar += price;
                 }
+                var strTutar = tutar.ToString();
+                TutarLbl.Text = strTutar.Substring(0, strTutar.Length - 2) + " ₺";
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
-                HataMesajlari.CatchError(ex);
+                //HataMesajlari.CatchError(ex);
             }
         }
 

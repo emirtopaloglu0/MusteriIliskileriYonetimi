@@ -39,6 +39,8 @@
             this.Cities_Label = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.Address_Box = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.TutarLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -246,10 +248,32 @@
             this.Address_Box.TabIndex = 12;
             this.Address_Box.Text = "";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label2.Location = new System.Drawing.Point(3, 166);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 23);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Tutar:";
+            // 
+            // TutarLbl
+            // 
+            this.TutarLbl.AutoSize = true;
+            this.TutarLbl.Font = new System.Drawing.Font("Figtree", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.TutarLbl.Location = new System.Drawing.Point(71, 166);
+            this.TutarLbl.Name = "TutarLbl";
+            this.TutarLbl.Size = new System.Drawing.Size(22, 23);
+            this.TutarLbl.TabIndex = 14;
+            this.TutarLbl.Text = "0";
+            // 
             // U_SepetPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.TutarLbl);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.Address_Box);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Cities_Label);
@@ -282,5 +306,7 @@
         private System.Windows.Forms.Label Cities_Label;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox Address_Box;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label TutarLbl;
     }
 }
