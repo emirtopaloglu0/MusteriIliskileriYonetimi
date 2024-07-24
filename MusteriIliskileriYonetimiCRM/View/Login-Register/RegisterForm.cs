@@ -30,39 +30,53 @@ namespace MusteriIliskileriYonetimiCRM.View.Login_Register
 
         private void Register_Btn_Click(object sender, EventArgs e)
         {
-            if (Name_Box.Text != string.Empty && Surname_Box.Text != string.Empty
-                && IdentityNo_Box.Text != string.Empty
-                && Pass_Box.Text != string.Empty
-                && Mail_Box.Text != string.Empty
-                && Address_RichBox.Text != string.Empty
-                && (Male_RadioBtn.Checked || Female_RadioBtn.Checked))
+            if (Name_Box.Text == string.Empty
+                || Surname_Box.Text == string.Empty
+                || IdentityNo_Box.Text == string.Empty
+                || Pass_Box.Text == string.Empty
+                || Mail_Box.Text == string.Empty
+                || Address_RichBox.Text == string.Empty
+                || (!Male_RadioBtn.Checked && !Female_RadioBtn.Checked))
             {
-                if (C_Musteri.instance.TcDogrula(IdentityNo_Box.Text))
+                HataMesajlari.BosOlamaz();
+                return;
+            }
+
+
+
+            if (C_Musteri.instance.TcDogrula(IdentityNo_Box.Text))
+            {
+                SoruMesajlari.instance.Kayit();
+                if (SoruMesajlari.instance.res != DialogResult.Yes)
+                { return; }
+
+                //char cinsiyet;
+                char cinsiyet = (Male_RadioBtn.Checked) ? cinsiyet = 'E' : cinsiyet = 'K';
+
+                //if Male_RadioBtn.Checked == true ? cinsiyet = 'E' : cinsiyet = 'K';
+                //else cinsiyet = 'K';
+
+                C_Musteri customer = new C_Musteri()
                 {
-                    SoruMesajlari.instance.Kayit();
-                    if (SoruMesajlari.instance.res != DialogResult.Yes)
-                    { return; }
+                    Name = Name_Box.Text,
+                    Surname = Surname_Box.Text,
+                    IdNo = IdentityNo_Box.Text,
+                    Password = Pass_Box.Text,
+                    Email = Mail_Box.Text,
+                    Gender = cinsiyet,
+                    Address = Address_RichBox.Text
+                };
 
-                    ActiveForm.UseWaitCursor = true;
-                    char cinsiyet;
-
-                    if (Male_RadioBtn.Checked) cinsiyet = 'E';
-                    else cinsiyet = 'K';
-
-                    if (C_Musteri.instance.Register(Name_Box.Text, Surname_Box.Text, IdentityNo_Box.Text,
-                        Pass_Box.Text, Mail_Box.Text, cinsiyet, Address_RichBox.Text))
-                    {
-                        BasariliMesajlari.KayitBasarili();
-                        ActiveForm.UseWaitCursor = false;
-                        Close();
-                    }
-
+                if (C_Musteri.instance.Register(customer))
+                {
+                    BasariliMesajlari.KayitBasarili();
+                    Close();
                 }
-                else
-                    HataMesajlari.TcKimlikYanlis();
+
             }
             else
-                HataMesajlari.BosOlamaz();
+                HataMesajlari.TcKimlikYanlis();
+
         }
 
         private void TextboxChanged(object sender, EventArgs e)

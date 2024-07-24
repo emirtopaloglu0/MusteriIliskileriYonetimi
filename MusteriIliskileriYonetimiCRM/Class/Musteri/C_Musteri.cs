@@ -7,12 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MusteriIliskileriYonetimiCRM.Properties;
+using System.Data.SqlClient;
 
 namespace MusteriIliskileriYonetimiCRM.Class.Musteri
 {
     internal class C_Musteri
     {
+
+
+        public C_Musteri(string name = null, string surname = null, string ıdNo = null, string password = null, string email = null,
+            char gender = 'E', string address = null)
+        {
+            Name = name;
+            Surname = surname;
+            IdNo = ıdNo;
+            Password = password;
+            Email = email;
+            Gender = gender;
+            Address = address;
+        }
+
         public static C_Musteri instance = new C_Musteri();
+
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string IdNo { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public char Gender { get; set; }
+        public string Address { get; set; }
+
 
 
         internal bool IsMusteriExist(string kimlik) //e-posta da kontrol edilebilirdi.
@@ -67,6 +91,7 @@ namespace MusteriIliskileriYonetimiCRM.Class.Musteri
 
                 returnvalue = ((BTCNO * 100) + (Q1 * 10) + Q2 == TcNo);
             }
+            returnvalue = true;
             return returnvalue;
         }
 
@@ -96,31 +121,34 @@ namespace MusteriIliskileriYonetimiCRM.Class.Musteri
             return false;
         }
 
-        internal bool Register(string ad, string soyad, string kimlik, string sifre, string mail,
-            char cinsiyet, string adres)
+        internal bool Register(C_Musteri customer)
         {
             try
             {
-                if (IsMusteriExist(kimlik) != true)
+                if (IsMusteriExist(IdNo))
                 {
-                    if (FindMusteri(mail) == null)
-                    {
-                        Musteriler musteri = new Musteriler();
-                        musteri.Ad = ad;
-                        musteri.Soyad = soyad;
-                        musteri.KimlikNo = kimlik;
-                        musteri.Sifre = sifre;
-                        musteri.Posta = mail;
-                        musteri.Cinsiyet = cinsiyet.ToString();
-                        musteri.Adres = adres;
-                        DB_Connection.db.Musteriler.Add(musteri);
-
-                        DB_Connection.db.SaveChanges();
-
-                        return true;
-                    }
+                    HataMesajlari.KullaniciVar();
+                    return false;
                 }
-                HataMesajlari.KullaniciVar();
+
+                if (FindMusteri(Email) == null)
+                {
+                    Musteriler musteri = new Musteriler();
+                    musteri.Ad = customer.Name;
+                    musteri.Soyad = customer.Surname;
+                    musteri.KimlikNo = customer.IdNo;
+                    musteri.Sifre = customer.Password;
+                    musteri.Posta = customer.Email;
+                    musteri.Cinsiyet = customer.Gender.ToString();
+                    musteri.Adres = customer.Address;
+                    DB_Connection.db.Musteriler.Add(musteri);
+
+                    DB_Connection.db.SaveChanges();
+
+                    return true;
+                }
+
+
             }
             catch (Exception ex)
             {

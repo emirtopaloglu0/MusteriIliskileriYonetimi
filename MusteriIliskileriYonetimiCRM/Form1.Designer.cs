@@ -33,9 +33,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ExitButton = new System.Windows.Forms.PictureBox();
+            this.a_AdminPanel1 = new MusteriIliskileriYonetimiCRM.View.AdminPanels.A_AdminPanel();
             this.u_MusteriPanel1 = new MusteriIliskileriYonetimiCRM.View.UserPanels.U_MusteriPanel();
             this.loginPanel1 = new MusteriIliskileriYonetimiCRM.View.Login_Register.LoginPanel();
-            this.a_AdminPanel1 = new MusteriIliskileriYonetimiCRM.View.AdminPanels.A_AdminPanel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ExitButton)).BeginInit();
@@ -44,9 +44,9 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.ExitButton);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.ExitButton);
             this.panel1.Location = new System.Drawing.Point(9, 7);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
@@ -88,6 +88,13 @@
             this.ExitButton.TabStop = false;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
+            // a_AdminPanel1
+            // 
+            this.a_AdminPanel1.Location = new System.Drawing.Point(12, 101);
+            this.a_AdminPanel1.Name = "a_AdminPanel1";
+            this.a_AdminPanel1.Size = new System.Drawing.Size(1257, 607);
+            this.a_AdminPanel1.TabIndex = 3;
+            // 
             // u_MusteriPanel1
             // 
             this.u_MusteriPanel1.Location = new System.Drawing.Point(9, 101);
@@ -101,13 +108,6 @@
             this.loginPanel1.Name = "loginPanel1";
             this.loginPanel1.Size = new System.Drawing.Size(1260, 585);
             this.loginPanel1.TabIndex = 1;
-            // 
-            // a_AdminPanel1
-            // 
-            this.a_AdminPanel1.Location = new System.Drawing.Point(12, 101);
-            this.a_AdminPanel1.Name = "a_AdminPanel1";
-            this.a_AdminPanel1.Size = new System.Drawing.Size(1257, 607);
-            this.a_AdminPanel1.TabIndex = 3;
             // 
             // Form1
             // 
