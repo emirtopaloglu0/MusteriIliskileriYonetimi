@@ -20,9 +20,7 @@ namespace MusteriIliskileriYonetimiCRM.Class.Order
 
         internal bool CreateOrder()
         {
-            //dbye kaydetme sipariş oluşturma sadece ID olsun tutar falan detaydan oluşturma.
-            //sipariş detayı da sepet panelinde oluşturulacak 
-
+           
             try
             {
                 Random rand = new Random();

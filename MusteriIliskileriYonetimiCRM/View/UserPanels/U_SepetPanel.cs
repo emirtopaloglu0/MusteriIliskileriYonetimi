@@ -18,8 +18,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
     public partial class U_SepetPanel : UserControl
     {
         public static U_SepetPanel instance;
-        internal List<int> cartList; //idlerden isimleri gelecek
-        //internal C_Cart cart = new C_Cart();
+        internal List<int> cartList; 
 
         decimal tutar = 0;
 

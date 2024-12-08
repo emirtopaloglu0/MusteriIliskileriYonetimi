@@ -23,6 +23,7 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             instance = this;
         }
 
+
         internal void LoadData()
         {
             Siparisler_Listbox.Items.Clear();

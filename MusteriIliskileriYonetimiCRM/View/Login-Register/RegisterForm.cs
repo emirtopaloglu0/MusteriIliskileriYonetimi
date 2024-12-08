@@ -50,11 +50,7 @@ namespace MusteriIliskileriYonetimiCRM.View.Login_Register
                 if (SoruMesajlari.instance.res != DialogResult.Yes)
                 { return; }
 
-                //char cinsiyet;
                 char cinsiyet = (Male_RadioBtn.Checked) ? cinsiyet = 'E' : cinsiyet = 'K';
-
-                //if Male_RadioBtn.Checked == true ? cinsiyet = 'E' : cinsiyet = 'K';
-                //else cinsiyet = 'K';
 
                 C_Musteri customer = new C_Musteri()
                 {

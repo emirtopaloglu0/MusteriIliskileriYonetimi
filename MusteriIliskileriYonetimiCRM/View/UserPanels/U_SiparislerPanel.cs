@@ -91,13 +91,6 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi == null && x.IptalTarihi == null)).ToList();
 
             LoadOrders(siparisler);
-
-            /*foreach (var item in siparisler)
-            {
-                var tahmini = Convert.ToDateTime(item.SiparisTarihi);
-                Siparisler_Listbox.Items.Add($"Sipariş Kodu: {item.Id} - Sipariş Tarihi: {item.SiparisTarihi} - Tutar: {item.Tutar} - " +
-                    $"Adres: {item.TeslimSehri} {item.TeslimAdresi} - Tahmini Teslim Tarihi: {tahmini.Date.AddDays(3)}");
-            }*/
         }
 
         private void CurrentOrders_Btn_Click(object sender, EventArgs e)
@@ -114,13 +107,6 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
 
             LoadOrders(siparisler);
 
-
-            /*foreach (var item in siparisler)
-            {
-                var tahmini = Convert.ToDateTime(item.SiparisTarihi);
-                Siparisler_Listbox.Items.Add($"Sipariş Kodu: {item.Id} - Sipariş Tarihi: {item.SiparisTarihi} - Tutar: {item.Tutar} - " +
-                    $"Adres: {item.TeslimSehri} {item.TeslimAdresi} - Tahmini Teslim Tarihi: {tahmini.Date.AddDays(3)}");
-            }*/
         }
 
         private void CancelledOrders_Btn_Click(object sender, EventArgs e)
@@ -131,14 +117,6 @@ namespace MusteriIliskileriYonetimiCRM.View.UserPanels
             var siparisler = DB_Connection.db.Siparisler.Where(x => x.MusteriId == user.Id && (x.TeslimTarihi == null && x.IptalTarihi != null)).ToList();
 
             LoadOrders(siparisler);
-
-
-            /*foreach (var item in siparisler)
-            {
-                var tahmini = Convert.ToDateTime(item.SiparisTarihi);
-                Siparisler_Listbox.Items.Add($"Sipariş Kodu: {item.Id} - Sipariş Tarihi: {item.SiparisTarihi} - Tutar: {item.Tutar} - " +
-                    $"Adres: {item.TeslimSehri} {item.TeslimAdresi} - Tahmini Teslim Tarihi: {tahmini.Date.AddDays(3)}");
-            }*/
         }
 
         private void ViewDetails_Btn_Click(object sender, EventArgs e)
