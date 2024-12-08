@@ -131,6 +131,12 @@
     <Compile Include="View\AdminPanels\A_DestekCevapForm.Designer.cs">
       <DependentUpon>A_DestekCevapForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\LoadingScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\LoadingScreen.Designer.cs">
+      <DependentUpon>LoadingScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Login-Register\LoginPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -213,6 +219,9 @@
       <DependentUpon>A_DestekCevapForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\LoadingScreen.resx">
+      <DependentUpon>LoadingScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Login-Register\LoginPanel.resx">
       <DependentUpon>LoginPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -288,6 +297,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\Animation - 1733644936478.gif" />
     <None Include="Resources\close2.png" />
     <None Include="Resources\help-desk.png" />
     <None Include="Resources\cargo.png" />

@@ -1,6 +1,7 @@
 ﻿using MusteriIliskileriYonetimiCRM.Class.Connection;
 using MusteriIliskileriYonetimiCRM.Mesajlar;
 using MusteriIliskileriYonetimiCRM.Properties;
+using MusteriIliskileriYonetimiCRM.View;
 using MusteriIliskileriYonetimiCRM.View.AdminPanels;
 using MusteriIliskileriYonetimiCRM.View.UserPanels;
 using System;
@@ -44,6 +45,9 @@ namespace MusteriIliskileriYonetimiCRM
         {
             a_AdminPanel1.Hide();
             u_MusteriPanel1.Hide();
+            this.Opacity = 0;
+            LoadingScreen loadingScreen = new LoadingScreen();
+            loadingScreen.Show();
         }
 
         public void LoggedIn()
@@ -59,6 +63,14 @@ namespace MusteriIliskileriYonetimiCRM
             loginPanel1.Visible = false;
             a_AdminPanel1.Visible = true;
             A_AdminPanel.instance.LoadData();
+        }
+
+
+        internal void ShowForm()
+        {
+            this.Opacity = 100;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }

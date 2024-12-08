@@ -63,6 +63,16 @@ namespace MusteriIliskileriYonetimiCRM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Animation___1733644936478 {
+            get {
+                object obj = ResourceManager.GetObject("Animation - 1733644936478", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cargo {
             get {
                 object obj = ResourceManager.GetObject("cargo", resourceCulture);

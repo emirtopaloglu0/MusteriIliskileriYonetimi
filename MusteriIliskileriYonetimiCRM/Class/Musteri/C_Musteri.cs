@@ -133,6 +133,7 @@ namespace MusteriIliskileriYonetimiCRM.Class.Musteri
 
                 if (FindMusteri(Email) == null)
                 {
+
                     Musteriler musteri = new Musteriler();
                     musteri.Ad = customer.Name;
                     musteri.Soyad = customer.Surname;
